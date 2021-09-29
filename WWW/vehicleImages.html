@@ -1,0 +1,206 @@
+﻿<head>
+    <link href="css/App/images.css" rel="stylesheet" />
+</head>
+<body>
+    <ons-navigator title="Navigator" var="VehicleViewsNavigator">
+        <ons-page class="font-small ons-page-fixed" ng-controller="vehicleImagesCtrl">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition })">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    Vehicle images
+                </div>
+            </div>
+
+            <ons-list modifier="inset" style="margin-top: 10px; overflow-y:hidden;">
+                <ons-list-item>
+                   
+                    <span class="list-item-action-left">
+                        <ons-icon icon="ion-arrow-left-b" class="button--quiet" size="30px" id="PrevBtn" ng-click="prev();"></ons-icon>
+                    </span>
+                    
+
+                    <span class="list-item-action-right">
+                        <ons-icon icon="ion-arrow-right-b" class="button--quiet" size="30px" ng-click="next();" id="NextBtn"></ons-icon>
+                    </span>
+
+                </ons-list-item>
+            </ons-list>
+
+            <ons-list modifier="inset" id="OldImageViews" style="margin-top: 10px; height:38%; overflow-y:hidden;" ng-controller="OldImagesCntr">
+
+                <ons-list-header>Previous images of vehicle</ons-list-header>
+
+                <ons-list-item style="height:90%;">
+
+                    <ons-carousel swipeable overscrollable auto-scroll fullscreen var="oldcarousel">
+
+                        <ons-carousel-item>
+                            <ons-row style="margin-top: 16px; height: 300px;">
+                                <ons-col width="2%"></ons-col>
+                                <ons-col>
+                                    <img alt="front" src="images/vehicleViews/front.jpg" id="frontViewOld" style="box-shadow: 1px 1px 8px #88888A; max-width: 100%; max-height: 100%;" />
+                                </ons-col>
+                                <ons-col width="2%"></ons-col>
+                            </ons-row>
+                            <label class="oldImageTitle">Front View</label>
+                        </ons-carousel-item>
+
+                        <ons-carousel-item>
+                            <ons-row style="margin-top: 16px; height: 300px;">
+                                <ons-col width="2%"></ons-col>
+                                <ons-col>
+                                    <!--<img src="images/IMAG1420.jpg" style="max-width: 100%; max-height: 100%;padding-top: 10px;" />-->
+                                    <img alt="rear" src="images/vehicleViews/rear.jpg" id="rearViewOld" style="box-shadow: 1px 1px 8px #88888A;max-width: 100%; max-height: 100%;" />
+                                </ons-col>
+                                <ons-col width="2%"></ons-col>
+                            </ons-row>
+                            <label class="oldImageTitle">Rear View</label>
+                        </ons-carousel-item>
+
+                        <ons-carousel-item>
+                            <ons-row style="margin-top: 16px; height: 300px;">
+                                <ons-col width="2%"></ons-col>
+                                <ons-col>
+                                    <img alt="left" src="images/vehicleViews/left.jpg" id="leftViewOld" style="box-shadow: 1px 1px 8px #88888A;max-width: 100%; max-height: 100%;" />
+                                </ons-col>
+                                <ons-col width="2%"></ons-col>
+                            </ons-row>
+                            <label class="oldImageTitle">Left View</label>
+                        </ons-carousel-item>
+
+                        <ons-carousel-item>
+                            <ons-row style="margin-top: 16px; height: 300px;">
+                                <ons-col width="2%"></ons-col>
+                                <ons-col>
+                                    <img alt="right" src="images/vehicleViews/right.jpg" id="rightViewOld" style="box-shadow: 1px 1px 8px #88888A;max-width: 100%; max-height: 100%;" />
+                                </ons-col>
+                                <ons-col width="2%"></ons-col>
+                            </ons-row>
+                            <label class="oldImageTitle">Right View</label>
+                        </ons-carousel-item>
+
+                    </ons-carousel>
+
+                </ons-list-item>
+            </ons-list>
+
+            <ons-list modifier="inset" style="margin-top: 10px; height: 60%; overflow-y: hidden; " ng-controller="newImagesCntr">
+
+                <ons-list-header>Add images of vehicle</ons-list-header>
+
+                <ons-list-item style="height: 90%;">
+
+                    <ons-carousel swipeable overscrollable auto-scroll fullscreen var="newcarousel">
+
+                        <ons-carousel-item>
+                            <ons-row style="margin-top: 16px; height: 300px;">
+                                <ons-col width="2%"></ons-col>
+                                <ons-col>
+                                    <img alt="front" src="images/vehicleViews/front.jpg" id="frontView" style="box-shadow: 1px 1px 8px #88888A; max-width: 100%; max-height: 100%;"/>
+                                </ons-col>
+                                <ons-col width="2%"></ons-col>
+                            </ons-row>
+                            <ons-row style="position: fixed; bottom: 40px; z-index: 1;">
+                                <ons-col></ons-col>
+                                <ons-col width="65%">
+                                    <button class="button button--outline" style="width: 100%;" ng-click="takeFront();">
+                                        <ons-icon icon="ion-ios-camera-outline" size="28px" fixed-width="false"></ons-icon>
+                                        Take Front View
+                                    </button><br>
+                                </ons-col>
+                                <ons-col></ons-col>
+                            </ons-row>
+                        </ons-carousel-item>
+
+                        <ons-carousel-item>
+                            <ons-row style="margin-top: 16px; height: 300px;">
+                                <ons-col width="2%"></ons-col>
+                                <ons-col>
+                                    <!--<img src="images/IMAG1420.jpg" style="max-width: 100%; max-height: 100%;padding-top: 10px;"/>-->
+                                    <img alt="rear" src="images/vehicleViews/rear.jpg" id="rearView" style="box-shadow: 1px 1px 8px #88888A; max-width: 100%; max-height: 100%;"/>
+                                </ons-col>
+                                <ons-col width="2%"></ons-col>
+                            </ons-row>
+                            <ons-row>
+                            </ons-row>
+                            <ons-row style="position: fixed; bottom: 40px; z-index: 1;">
+                                <ons-col></ons-col>
+                                <ons-col>
+                                    <button class="button button--outline" style="width: 100%;" ng-click="takeRear();">
+                                        <ons-icon icon="ion-ios-camera-outline" size="28px" fixed-width="false"></ons-icon>
+                                        Take Rear View
+                                    </button><br>
+                                </ons-col>
+                                <ons-col></ons-col>
+                            </ons-row>
+                        </ons-carousel-item>
+
+                        <ons-carousel-item>
+                            <ons-row style="margin-top: 16px; height: 300px;">
+                                <ons-col width="2%"></ons-col>
+                                <ons-col>
+                                    <img alt="left" src="images/vehicleViews/left.jpg" id="leftView" style="box-shadow: 1px 1px 8px #88888A; max-width: 100%; max-height: 100%;"/>
+                                </ons-col>
+                                <ons-col width="2%"></ons-col>
+                            </ons-row>
+                            <ons-row>
+                            </ons-row>
+                            <ons-row style="position: fixed; bottom: 40px; z-index: 1;">
+                                <ons-col></ons-col>
+                                <ons-col>
+                                    <button class="button button--outline" style="width: 100%;" ng-click="takeLeft();">
+                                        <ons-icon icon="ion-ios-camera-outline" size="28px" fixed-width="false"></ons-icon>
+                                        Take Left View
+                                    </button><br>
+                                </ons-col>
+                                <ons-col></ons-col>
+                            </ons-row>
+                        </ons-carousel-item>
+
+                        <ons-carousel-item>
+                            <ons-row style="margin-top: 16px; height: 300px;">
+                                <ons-col width="2%"></ons-col>
+                                <ons-col>
+                                    <img alt="right" src="images/vehicleViews/right.jpg" id="rightView" style="box-shadow: 1px 1px 8px #88888A; max-width: 100%; max-height: 100%;"/>
+                                </ons-col>
+                                <ons-col width="2%"></ons-col>
+                            </ons-row>
+                            <ons-row>
+                            </ons-row>
+                            <ons-row style="position: fixed; bottom: 40px; z-index: 1;">
+                                <ons-col></ons-col>
+                                <ons-col>
+                                    <button class="button button--outline" style="width: 100%;" ng-click="takeRight();">
+                                        <ons-icon icon="ion-ios-camera-outline" size="28px" fixed-width="false"></ons-icon>
+                                        Take Right View
+                                    </button><br>
+                                </ons-col>
+                                <ons-col></ons-col>
+                            </ons-row>
+                        </ons-carousel-item>
+
+                    </ons-carousel>
+
+                </ons-list-item>
+
+            </ons-list>
+
+            <br />
+            <ons-list modifier="inset">
+                <button type="submit" id="addDamageConfirm" class="button button--large--cta" onclick="homeNavigator.popPage({ animation: defaultTransition })">
+                    Continue
+                </button>
+            </ons-list>
+            <!-- <ons-list modifier="inset">
+                <button type="submit" id="addDamageConfirm" class="button button--large--cta" ng-click="BackToCheckDamage();">
+                    Continue
+                </button>
+            </ons-list> -->
+        </ons-page>
+    </ons-navigator>
+</body>

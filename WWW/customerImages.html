@@ -1,0 +1,82 @@
+﻿<head>
+    <link href="css/App/images.css" rel="stylesheet"/>
+</head>
+<body>
+    <ons-navigator title="Navigator" var="VehicleViewsNavigator">
+        <ons-page class="font-small ons-page-fixed" ng-controller="customerImagesCtrl">
+            
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" ng-click="navigateBack()" style="width: 15%;">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center ellipsis-label" style="width: 70%;">Customer Images</div>
+                <div class="navigation-bar__right" style="width: 15%;" ng-click="add()">
+                    <ons-icon class="button button--quiet" icon="ion-android-add-circle" size="20px" fixed-width="false" style="color: green"></ons-icon>
+                </div>
+            </div>
+             
+            <div ng-show="showModal">
+                <div class="alert-dialog-mask" style="z-index: 2"></div>
+                <div class="alert-dialog" style="z-index: 2">
+                    <div class="alert-dialog-title">
+                        <span ng-show="!updateMode">Add Image</span>
+                        <span ng-show="updateMode">Update Image</span>
+                    </div>
+                    <div class="alert-dialog-content">
+                        <input type="text" placeholder="Title" ng-model="image.Title" class="text-input" style="margin-bottom: 5px;">
+                        <textarea placeholder="Description" ng-model="image.Description" class="textarea" style="width: 100%; resize: vertical; margin-bottom: 5px;">                            
+                        </textarea>
+                        
+                        <ons-row style="background: #c5c5c5; margin-bottom: 5px; border-radius: 3px;">
+                            <img ng-src="{{image.Base64}}" ng-click="takePic()" style="height: 150px; max-width:100%; margin: 0 auto; border-radius: 3px;" />
+                        </ons-row>                       
+
+                        <ons-row>
+                            <ons-col>
+                                <ons-button modifier="outline" ng-click="showModal=false;" style="width: 100%;">Cancel</ons-button>
+                            </ons-col>
+                            <ons-col width="5px"></ons-col>
+                            <ons-col>
+                                <ons-button modifier="large" ng-click="save()">
+                                    <span ng-show="!updateMode">Save</span>
+                                    <span ng-show="updateMode">Update</span>
+                                </ons-button>
+                            </ons-col>
+                        </ons-row>
+                    </div>
+                </div>
+            </div>
+
+            <ons-list style="position: relative;">
+                <ons-list-item class="list-item-container center-it" ng-show="images.length==0">
+                    No Images
+                </ons-list-item>
+                <ons-list-item class="list-item-container" ng-repeat="item in images">
+                    <ons-row>
+                        <ons-col width="95px">
+                            <img ng-src="{{item.Base64}}" class="thumbnail" alt=""/>
+                        </ons-col>
+                        <ons-col>
+                            <header>
+                                <span class="item-title">{{item.Title}}</span>
+                            </header>
+                            <span style="font-size: 12px;"><i>{{item.Description}}</i></span>
+                        </ons-col>
+                        <ons-col width="40px">
+                            <span class="toolbar-button--quiet navigation-bar__line-height" ng-click="edit(item)">
+                                <i class="ion-edit" style="color: brown"></i>
+                            </span>
+                            <span class="toolbar-button--quiet navigation-bar__line-height" ng-click="delete(item)">
+                                <i class="ion-trash-a" style="color: red"></i>
+                            </span>
+                        </ons-col>
+                    </ons-row>
+                </ons-list-item>
+            </ons-list>
+
+        </ons-page>
+
+    </ons-navigator>
+</body>

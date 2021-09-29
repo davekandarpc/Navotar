@@ -1,0 +1,278 @@
+﻿<body>
+    <ons-navigator title="Navigator" var="rateNavigator">
+
+        <ons-page class="font-small ons-page-fixed">
+
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    <label class="toolbarHeader">Agreement Rates</label>
+                </div>
+            </div>
+            <form name="checkOutForm" id="checkOutForm" novalidate="">
+                <div ng-controller="checkOutRate">
+                    <ons-list modifier="inset" style="margin-top: 10px">
+                        <ons-list-header>Select Rate</ons-list-header>
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Rate Name</label>
+                                </ons-col>
+                                <ons-col>
+                                    <select class="form-control" ng-options='item as item for item in checkOutRates' ng-model="info.rate" ng-change="setRate(info.rate)"
+                                            style="width: 100%; height: 30px; text-indent: 0; text-align-last: center; border-radius: 5px;"></select>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                    </ons-list>
+                    <ons-list modifier="inset" style="margin-top: 10px" sliding-menu-ignore="true">
+                        <ons-list-header>Rate Details</ons-list-header>
+
+                        <!--here-->
+
+                        <ons-list modifier="inset" style="margin-top: 10px">
+                            <ons-list-item>
+                                <ons-row>
+                                    <ons-col width="35%">
+                                        <label>Start Date</label>
+                                    </ons-col>
+                                    <ons-col width="3%">
+                                        :
+                                    </ons-col>
+                                    <ons-col width="58%">
+                                        <label class="value">{{info.RateInfo.StartDate}}</label>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item>
+                                <ons-row>
+                                    <ons-col width="35%">
+                                        <label>End Date</label>
+                                    </ons-col>
+                                    <ons-col width="3%">
+                                        :
+                                    </ons-col>
+                                    <ons-col width="58%">
+                                        <label class="value">{{info.RateInfo.EndDate}}</label>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+                        </ons-list>
+
+                        <ons-list modifier="inset" style="margin-top: 10px; overflow: hidden;">
+
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row style="height: 41px;">
+                                    <ons-col width="30%">
+                                        <input type="text" class="text-input transparent-input" value="Hourly"><br>
+                                    </ons-col>
+                                    <ons-col width="8%">
+                                        <input type="text" class="text-input transparent-input" value=":"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.RateInfo.HourlyQty"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" value="X"><br>
+                                    </ons-col>
+                                    <ons-col>
+                                        <input type="tel" ng-readonly="{{setReadOnly}}" style="padding: 15px 5px; margin-top: 6px; text-align:right" class="text-input currency" pattern="[0-9]*" ng-model="info.RateInfo.HourlyRate">
+                                    </ons-col>
+                                    <ons-col width="7%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.currencyformat"><br>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row style="height: 41px;">
+                                    <ons-col width="30%">
+                                        <input type="text" class="text-input transparent-input" value="Half Day"><br>
+                                    </ons-col>
+                                    <ons-col width="8%">
+                                        <input type="text" class="text-input transparent-input" value=":"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.RateInfo.HalfDayQty"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" value="X"><br>
+                                    </ons-col>
+                                    <ons-col>
+                                        <input type="tel" ng-readonly="{{setReadOnly}}" style="padding: 15px 5px; text-align:right;margin-top: 6px;" class="text-input currency" ng-model="info.RateInfo.HalfDayRate">
+                                        <!--<label class="value" ng-bind="info.agreementNo"></label>-->
+                                    </ons-col>
+                                    <ons-col width="7%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.currencyformat"><br>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row style="height: 41px;">
+                                    <ons-col width="30%">
+                                        <input type="text" class="text-input transparent-input" value="Daily"><br>
+                                    </ons-col>
+                                    <ons-col width="8%">
+                                        <input type="text" class="text-input transparent-input" value=":"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.RateInfo.DailyQty"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" value="X"><br>
+                                    </ons-col>
+                                    <ons-col>
+                                        <input type="tel" ng-readonly="{{setReadOnly}}" style="padding: 15px 5px;text-align:right; margin-top: 6px;" class="text-input currency" ng-model="info.RateInfo.DailyRate">
+                                        <!--<label class="value" ng-bind="info.agreementNo"></label>-->
+                                    </ons-col>
+                                    <ons-col width="7%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.currencyformat"><br>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row style="height: 41px;">
+                                    <ons-col width="30%">
+                                        <input type="text" class="text-input transparent-input" value="Week End"><br>
+                                    </ons-col>
+                                    <ons-col width="8%">
+                                        <input type="text" class="text-input transparent-input" value=":"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.RateInfo.WeekendDailyQty"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" value="X"><br>
+                                    </ons-col>
+                                    <ons-col>
+                                        <input type="tel" ng-readonly="{{setReadOnly}}" style="padding: 15px 5px;text-align:right; margin-top: 6px;" class="text-input currency" ng-model="info.RateInfo.WeekEndRate">
+                                        <!--<label class="value" ng-bind="info.agreementNo"></label>-->
+                                    </ons-col>
+                                    <ons-col width="7%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.currencyformat"><br>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row style="height: 41px;">
+                                    <ons-col width="30%">
+                                        <input type="text" class="text-input transparent-input" value="Weekly"><br>
+                                    </ons-col>
+                                    <ons-col width="8%">
+                                        <input type="text" class="text-input transparent-input" value=":"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.RateInfo.WeeklyQty"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" value="X"><br>
+                                    </ons-col>
+                                    <ons-col>
+                                        <input type="tel" ng-readonly="{{setReadOnly}}" style="padding: 15px 5px;text-align:right; margin-top: 6px;" class="text-input currency" ng-model="info.RateInfo.WeeklyRate">
+                                        <!--<label class="value" ng-bind="info.agreementNo"></label>-->
+                                    </ons-col>
+                                    <ons-col width="7%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.currencyformat"><br>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row style="height: 41px;">
+                                    <ons-col width="30%">
+                                        <input type="text" class="text-input transparent-input" value="Monthly"><br>
+                                    </ons-col>
+                                    <ons-col width="8%">
+                                        <input type="text" class="text-input transparent-input" value=":"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.RateInfo.MonthlyQty"><br>
+                                    </ons-col>
+                                    <ons-col width="10%">
+                                        <input type="text" class="text-input transparent-input" value="X"><br>
+                                    </ons-col>
+                                    <ons-col>
+                                        <input type="tel" ng-readonly="{{setReadOnly}}" style="padding: 15px 5px;text-align:right; margin-top: 6px;" class="text-input currency" ng-model="info.RateInfo.MonthlyRate">
+                                        <!--<label class="value" ng-bind="info.agreementNo"></label>-->
+                                    </ons-col>
+                                    <ons-col width="7%">
+                                        <input type="text" class="text-input transparent-input" ng-model="info.currencyformat"><br>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                        </ons-list>
+
+                        <ons-list modifier="inset" style="margin: 10px; overflow: hidden;">
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row style="height: 41px;">
+                                    <ons-col width="50%">
+                                        <input type="text" class="text-input transparent-input ellipsis-label" value="Daily KM Allowed"><br>
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        <input type="text" class="text-input transparent-input" value=":"><br>
+                                    </ons-col>
+                                    <ons-col>
+                                        <input type="tel" style="padding: 15px 5px;text-align:right; margin-top: 6px;" class="text-input" ng-model="info.RateInfo.DailyMailageAllowed">
+                                        <!--<label class="value" ng-bind="info.agreementNo"></label>-->
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row style="height: 41px;">
+                                    <ons-col width="50%">
+                                        <input type="text" class="text-input transparent-input ellipsis-label" value="Weekly KM Allowed"><br>
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        <input type="text" class="text-input transparent-input " value=":"><br>
+                                    </ons-col>
+                                    <ons-col>
+                                        <input type="tel" style="padding: 15px 5px;text-align:right; margin-top: 6px;" class="text-input" ng-model="info.RateInfo.WeeklyMailageAllowed">
+                                        <!--<label class="value" ng-bind="info.agreementNo"></label>-->
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row style="height: 41px;">
+                                    <ons-col width="50%">
+                                        <input type="text" class="text-input transparent-input ellipsis-label" value="Monthly KM Allowed"><br>
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        <input type="text" class="text-input transparent-input" value=":"><br>
+                                    </ons-col>
+                                    <ons-col>
+                                        <input type="tel" style="padding: 15px 5px;text-align:right; margin-top: 6px;" class="text-input" ng-model="info.RateInfo.MonthlyMailageAllowed">
+                                        <!--<label class="value" ng-bind="info.agreementNo"></label>-->
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                        </ons-list>
+
+                        <!--here-->
+
+
+                    </ons-list>
+                    <ons-list modifier="inset" style="margin-top: 10px;">
+                        <ons-button modifier="large--cta" id="checkOutRateConfirm" ng-click="navigate()" ng-disabled="loading">
+                            Continue
+                        </ons-button>
+                    </ons-list>
+                </div>
+
+            </form>
+        </ons-page>
+
+    </ons-navigator>
+</body>

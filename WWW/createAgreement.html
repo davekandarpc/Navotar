@@ -1,0 +1,124 @@
+﻿<body>
+    <ons-navigator title="Navigator" var="createAgreementNavigator">
+
+        <ons-page class="ons-page-fixed" ng-controller="createAgreementCtrl">
+
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    Create Agreement
+                </div>
+            </div>
+
+            <form>
+                <ons-list modifier="inset" style="margin-top: 10px; display:none;">
+                    <ons-list-item>
+                        <button class="button button--large--quiet">View Terms & Conditions</button>
+                    </ons-list-item>
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px" class='TermsAndConditionList'>
+                    <ons-list-header>Terms & Conditions</ons-list-header>
+                    <ons-list-item ng-repeat="term in terms" style="margin-top: 10px;">
+                        <ons-row style="margin-top: 5px;">
+                            <ons-col width="1%"></ons-col>
+                            <ons-col width="9">
+                                <label class="checkbox checkbox--list-item" style="margin-top: -10px;">
+                                    <input type="checkbox" class="term-checkbox" ng-model="checkingTerms">
+                                    <div class="checkbox__checkmark checkbox--list-item__checkmark"></div>
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <div style="margin-left: 5px;">
+                                    <ons-row style="text-align: justify; font-size: 15px; line-height: 140%;">
+                                        <b>{{term.Term}}</b>
+                                    </ons-row>
+                                    <hr class="faded-hr" ng-show="checkingTerms">
+                                    <ons-row style="text-align: justify; font-size: 12px; line-height: 140%;" ng-show="checkingTerms">
+                                        <i style="margin-bottom: 2px;overflow-y: scroll;height: 300px;">
+                                            {{term.Description}}
+                                            
+                                        </i>
+                                    </ons-row>
+                                </div>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item style="line-height: 1;" ng-show="terms.length == 0">
+                        <ons-row >
+                            <div style="padding: 15px 5px; margin-top: -5px;" class="center-it">
+                                <ons-row style="text-align: Center; font-size: 15px; line-height: 140%; opacity: 0.5;">
+                                    Neither Terms nor Conditions are available
+                                </ons-row>
+                            </div>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+
+                <ons-list modifier="inset" style="margin-top: 10px; overflow:hidden" ng-show="terms.length != 0">
+                    <ons-list-item style="line-height: 1;">
+                        <ons-row style="height: 41px;">
+                            <ons-col width="1%"></ons-col>
+                            <ons-col width="9">
+                                <label class="checkbox checkbox--list-item" style="padding: 15px 0px; margin-top: -15px;">
+                                    <input type="checkbox" id="allAccept" ng-model="selectedAll" ng-click="acceptAllFunction()">
+                                    <div class="checkbox__checkmark checkbox--list-item__checkmark"></div>
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <div style="padding: 15px 5px; margin-top: -5px;">
+                                    <ons-row style="text-align: justify; font-size: 15px; line-height: 140%;">
+                                        Accept all conditions
+                                    </ons-row>
+                                </div>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px;" ng-if="customTerms">
+                    <button class="button button--outline term-button" ng-click="showTerms()">Read & Accept Terms</button>
+                </ons-list>
+
+                <div sliding-menu-ignore="true" ng-controller="createAgreementSign">
+                    <div sliding-menu-ignore="true">
+                        <div class="sigPad">
+                            <div class="sig sigWrapper" style="text-align:center;">
+                                <ons-list modifier="inset" style="margin-top: 10px">
+                                    <ons-list-header>Signature</ons-list-header>
+                                    <canvas id="createAgreementSignatureCanvas" class="pad center-it signPad" width="300" height="150"></canvas>
+                                    <hr style="margin-top: 1px;border: 0;height: 1px;background-image: linear-gradient(to right,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+                                    <ons-list-item class="center-it">
+                                        <ons-button modifier="quiet" class="forgot-password" ng-click="clear()" style="font-size:13px;margin: 0; color:red">Clear Signature</ons-button>
+                                    </ons-list-item>
+                                </ons-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ons-list modifier="inset" style="margin-top: 10px;">
+                    <button type="submit" class="button button--large--cta" ng-click="validate()" ng-disabled="loading">
+                        Checkout
+                    </button>
+                </ons-list>
+
+            </form>
+
+        </ons-page>
+    </ons-navigator>
+</body>
+
+<style>
+    .term-button {
+        width: 100%;
+        border: 1px solid white;
+        background-color: gray;
+        color: white;
+    }
+</style>

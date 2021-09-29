@@ -1,0 +1,125 @@
+﻿
+<body>
+    <ons-navigator animation="slide" var="newCustomerNavigator">
+        <ons-page ng-controller="licenseScanCtrl" class="ons-page-fixed">
+            <div class="navigation-bar">
+
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    Scan License
+                </div>
+            </div>
+            <div id="page1">
+                <p>
+                    <div id="page3" class="page3">
+                        <div class="div-Countries">
+                            <div style="padding:5px;">
+                                <ons-button modifier="outline" style="width:60%; text-align: center; color: black" ng-click="selectedRegionAction(0)">
+
+                                    United States
+                                </ons-button>
+                            </div>
+                            <div style="padding:5px;">
+                                <ons-button modifier="outline" style="width:60%; text-align: center; color: black" ng-click="selectedRegionAction(1)">
+                                    
+                                    Canada
+                                </ons-button>
+                            </div>
+                            <div style="padding:5px;">
+                                <ons-button modifier="outline" style="width:60%; text-align: center; color: black" ng-click="selectedRegionAction(3)">
+
+                                    Europe
+                                </ons-button>
+                            </div>
+                            <div style="padding:5px;">
+                                <ons-button modifier="outline" style="width:60%; text-align: center; color: black" ng-click="selectedRegionAction(7)">
+                                  
+                                    Africa
+                                </ons-button>
+                            </div>
+                            <div style="padding:5px;">
+                                <ons-button modifier="outline" style="width:60%; text-align: center; color: black" ng-click="selectedRegionAction(5)">
+                                   
+                                    Asia
+                                </ons-button>
+                            </div>
+                            <div style="padding:5px;">
+                                <ons-button modifier="outline" style="width:60%; text-align: center; color: black" ng-click="selectedRegionAction(2)">
+                                   
+                                    Latin America
+                                </ons-button>
+                            </div>
+                            <div style="padding:5px;">
+                                <ons-button modifier="outline" style="width:60%; text-align: center; color: black" ng-click="selectedRegionAction(4)">
+                                   
+                                    Australia
+                                </ons-button>
+                            </div>
+                        </div>
+                    </div>
+                </p>
+                <p>
+                    <div class="div-center">
+                        <div class="card-image front-image" id="front-image">
+                            <span class="t1">Tap to capture front side</span>
+                        </div>
+                        <div class="card-image back-image" id="back-image" >
+                            <span class="t2">Tap to capture back side </br>(Optional)</span>
+                        </div>
+                        <div class="card-image ProcessBtn" id="ProcessBtn">
+                            <br/>
+                            <ons-button modifier="outline" id="ProcessLicenseBtn" class="ProcessLicenseBtn" style="text-align: center; color: black" ng-click="processAction()">
+                            Process
+                            </ons-button>
+                        </div>
+                    </div>
+                </p>
+                <!-- 
+                <p>
+                    <div class="div-bottom" style="padding:5px;">
+                        <ons-button modifier="outline" style="width:60%; text-align: center; color: black" ng-click="processAction()">
+                            Process
+                        </ons-button>
+                    </div>
+                </p>
+                -->
+            </div>
+            <div id="progress_modal" class="hdn"></div>
+            <!--<div id="page2" class="hdn">
+                <div class="div-back">
+                    <label class="buttons" id="back-btn">Back</label>
+                </div>
+                <p>
+                    <div class="div-images">
+                        <img class="card-image-result" id="front-image-result" alt="" />
+                        <img class="card-image-result" id="back-image-result" alt="" />
+                    </div>
+                <p class="p4"><img class="card-image-result" id="face-image-result" alt="" /></p>
+                <p class="p3"><img class="card-image-result" id="signature-image-result" alt="" /></p>
+                </p>
+
+            </div>
+			
+            <p>
+                <div class="div-text-result">
+                    <label class="result" id="result-label"></label>
+                </div>
+            </p>
+           -->
+          <!-- <ons-modal var="notificationModal" style="background-color:rgba(0, 0, 0, 0.86);">
+            <div class="loginLoadingMsg">
+                <ons-icon icon="ion-ios-loop" style="font-size:25px" spin="true"></ons-icon>
+                <br><br>
+                Please wait.<br>
+            </div>
+            </ons-modal>
+        -->
+			
+        </ons-page>
+    </ons-navigator>
+</body>

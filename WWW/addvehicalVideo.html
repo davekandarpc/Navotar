@@ -1,0 +1,88 @@
+<head>
+    <link href="css/App/images.css" rel="stylesheet" />
+    <style type="text/css">
+        .videoGrid {
+            border-spacing: 2px;
+
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        td {
+
+            border: 1px solid gray;
+            width: 33%;
+
+            display: inline-block;
+        }
+
+        .videoBg {
+            overflow: hidden;
+        }
+
+        .videoBg video {
+            min-width: 100%;
+            min-height: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <ons-navigator title="Navigator" var="addvehicalVideoNavigator">
+        <ons-page class="font-small ons-page-fixed" ng-controller="addvehicalVideoCtrl">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition })">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    Vehicle Video
+                </div>
+            </div>
+            <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+                <button class="button button--large--cta" style="width: 100%;" ng-click="takeVideo()">
+                    <ons-icon icon="ion-ios-camera-outline" size="28px" fixed-width="false"></ons-icon>
+                    Take Video
+                </button>
+            </div>
+            <div>
+                <ons-list-item style="padding: 0px;border: 1px solid #d3d3d3;margin: 10px;border-radius: 3px;min-height: 0px;line-height: 0px;"
+                    ng-repeat="Videolistdata in VideoList">
+
+                    <video height="300px" width="100%" controls>
+                        <source src="{{trustSrc(Videolistdata.VideoFilePath)}}">
+                    </video>
+
+                    <button class="button button--large--cta" style="width: 100%;border-radius:0px 0px 3px 3px"
+                        ng-click="videoDeleteConfirm($index)">
+                        <ons-icon icon="ion-trash-b" size="28px" fixed-width="false"></ons-icon>
+                        Delete
+                    </button>
+
+                </ons-list-item>
+            </div>
+
+            <div>
+                <ons-list-item style="padding: 0px;border: 1px solid #d3d3d3;margin: 10px;border-radius: 3px;min-height: 0px;line-height: 0px;" 
+                    ng-repeat="video in addVideosFactory">
+
+                    <video height="300px" width="100%" controls>
+                        <source src="{{trustSrc(video.fullPath)}}">
+                    </video>
+
+                    <button class="button button--large--cta" style="width: 100%;border-radius:0px 0px 3px 3px"
+                        ng-click="videoDeleteConfirm($index)">
+                        <ons-icon icon="ion-trash-b" size="28px" fixed-width="false"></ons-icon>
+                        Delete
+                    </button>
+
+                </ons-list-item>
+            </div>
+        </ons-page>
+    </ons-navigator>
+</body>

@@ -1,0 +1,245 @@
+﻿<body>
+    <ons-navigator title="Navigator" var="miscNavigator">
+
+        <ons-page ng-controller="miscChargeCntrl">
+
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    <label class="toolbarHeader">Agreement Charges</label>
+                </div>
+            </div>
+  
+            <div id="taxChargeList" sliding-menu-ignore="true">
+                <ons-list modifier="inset" style="margin-top: 10px;overflow: hidden;">
+                    <ons-list-header>tax charges</ons-list-header>
+                    <ons-list-item ng-repeat="taxCharge in taxChargesList">
+                        {{taxCharge.TaxName}}
+                        <ons-switch modifier="list-item" ng-model="taxCharge.IsSelected" ng-disabled="!taxCharge.IsOptional"></ons-switch>
+                    </ons-list-item>
+                    <ons-list-item style="color: #5198DB;" ng-show="noTax">
+                        No records found!
+                    </ons-list-item>
+                </ons-list>
+            </div>
+
+            <div id="miscChargeList" ng-show="!noMisc" sliding-menu-ignore="true">
+                <ons-list modifier="inset" style="margin-top: 10px;overflow: hidden;">
+                    <ons-list-header>miscellaneous charges</ons-list-header>
+                    <ons-list-item ng-repeat="miscCharge in miscChargesList">
+                        <ons-row>
+                            <ons-col width="50%">
+                                <ons-row>
+                                    <ons-col class="ellipsis-label">{{miscCharge.Name}}</ons-col>
+                                    <ons-col class="ellipsis-label" ng-if="miscCharge.TaxNotAvailable" ng-show="false">(Non
+                                        Tax)
+                                    </ons-col>
+                                    <span ng-if="miscCharge.IsQuantity === true" ng-show="miscCharge.IsSelected" style="margin: 0px 5px">
+                                        <select class="form-control" ng-options="n for n in [] | QuantityRange:1:20"
+                                            ng-model="miscCharge.Quantity" style="height: 31px; text-indent: 0; text-align-last: center;border-radius: 5px; margin:7px 0px">
+                                        </select>                                      
+                                    </span>
+                                </ons-row>
+                            </ons-col>
+                            <ons-col>
+                                <input type="tel" style="padding: 15px 5px;margin-top: 6px; text-align:right" class="text-input" ng-model="miscCharge.Value"
+                                    ng-blur="setCurrency(miscCharge)">
+                            </ons-col>
+                            <ons-col width="7%" style="height: 0">
+                                <input type="text" class="text-input transparent-input" ng-model="currencyformat"><br>
+                            </ons-col>
+                            <ons-col>
+                                <ons-switch id="{{miscCharge.MiscChargeID}}" modifier="list-item" ng-change='setCurrency(miscCharge);IsSelected(miscCharge.MiscChargeID)' ng-model="miscCharge.IsSelected" ng-disabled="miscCharge.IsOptional"></ons-switch>
+                            </ons-col>
+                        </ons-row>
+                        <ons-row>
+                            <div class="button-bar" style="width:100%;" ng-show="miscCharge.IsSelected">
+                                <div class="button-bar__item" ng-repeat="option in miscCharge.MiscOptions">
+
+                                    <input ng-if="option.Value == miscCharge.Value" checked="checked" type="radio" name="{{miscCharge.Name}}" value="{{option.Option}}"  id="{{option.MischargeOptionID}}"
+                                        ng-click="miscOptionChange(option)">
+                                    <input ng-if="option.Value != miscCharge.Value"  type="radio" name="{{miscCharge.Name}}" value="{{option.Option}}"  id="{{option.MischargeOptionID}}"
+                                        ng-click="miscOptionChange(option)">
+                                    
+                                    <button class="button-bar__button">{{option.Option}}</button>
+                                </div>
+                            </div>
+                        </ons-row>
+                        
+                    </ons-list-item>
+                    <ons-list-item style="color: #5198DB;" ng-show="noMisc">
+                        No records found!
+                    </ons-list-item>
+
+
+
+                </ons-list>
+
+
+
+                <ons-list id="dateStartEndAgreement"  modifier="inset" style="margin-top: 10px">
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="50%">
+                                <label>Start Date</label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>:</label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="date" name="startDate" value="" ng-model="startDate" style="width:100%"
+                                    class="text-input text-input--underbar">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="50%">
+                                <label>
+                                    End Date
+                                </label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="date" name="endDate" value="" ng-model="endDate" style="width:100%" class="text-input text-input--underbar">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+                <!-- add Insurance detail -->
+                <ons-list modifier="inset" ng-show="InsuranceDetailVisibility" style="margin-top: 10px">
+                    <ons-list-header>Insurance</ons-list-header>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="50%">
+                                <label>Company</label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>:</label>
+                            </ons-col>
+                            <ons-col>
+                                <select class="form-control" id="InsuranceComapany" ng-options='item.CompanyName for item in InsuranceComapanies'
+                                    ng-init ="InsuranceInfo.Company=InsuranceComapanies[0]"
+                                    ng-model="InsuranceInfo.Company" style="width: 100%; height: 30px; text-indent: 0; text-align-last: center;border-radius: 5px; margin-top: 7px;"></select>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="50%">
+                                <label>
+                                    Policy No.
+                                </label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="text" name="PolicyNumber" ng-model="InsuranceInfo.PolicyNumber"  style="padding: 15px 5px; margin-top: 6px;width:100%"
+                                    class="text-input">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="50%">
+                                <label>
+                                    Claim No.
+                                </label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="number" name="ClaimNumber" ng-model="InsuranceInfo.ClaimNumber" style="padding: 15px 5px; margin-top: 6px;width:100%"
+                                    class="text-input">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item >
+                        <ons-row>
+                            <ons-col width="50%">
+                                <label>
+                                    Expiry Date
+                                </label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="date" name="ExpiryDate" ng-model="InsuranceInfo.ExpiryDate" style="width:100%"
+                                    class="text-input text-input--underbar">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    
+                    <!-- Edited By MS -->
+                    <ons-list-item id="vi_id">
+                        <ons-row>
+                            <ons-col width="50%">
+                                <label>
+                                    Vehicle Information
+                                </label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="text" name="VehicleInformation" ng-model="InsuranceInfo.accidentVehicleInfo"  style="padding: 15px 5px; margin-top: 6px;width:100%"
+                                    class="text-input">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item id="af_id">
+                        <ons-row>
+                            <ons-col width="50%">
+                                <label>
+                                    AF/NAF
+                                </label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="text" name="Af_NAF" ng-model="InsuranceInfo.afnaf"  style="padding: 15px 5px; margin-top: 6px;width:100%"
+                                    class="text-input">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <!-- End -->
+                </ons-list>
+            </div>
+            <ons-list modifier="inset" style="margin-top: 10px;">
+                <ons-button disabled modifier="large--cta" id="miscChargeConfirm" ng-click="submit()">
+                    Continue
+                </ons-button>
+            </ons-list>
+        </ons-page>
+
+    </ons-navigator>
+</body>

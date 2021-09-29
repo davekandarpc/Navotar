@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <ons-navigator title="Navigator" var="signupNavigator">
+        <ons-page sliding-menu-ignore="false" ng-controller="regionCtrl" class="ons-page-fixed">
+
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="LoginNavigator.popPage()">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                   Regional Settings
+                </div>
+
+            </div>
+
+            <ons-list>
+                
+                <ons-list-item>
+                    <div class="center">
+                        Enable Pacific region 
+                    </div>
+                    <div class="right">
+                        <ons-switch var="region" ng-click="setRegion()"  ng-checked="setRegioncheck()"></ons-switch>
+                    </div>
+                    <p style="text-align: center; font-size:12px;">Please contact navotar team before enabling.</p>
+                </ons-list-item>
+            </ons-list>
+
+        </ons-page>
+    </ons-navigator>
+</body>
+</html>

@@ -1,0 +1,104 @@
+﻿<head>
+    <link href="css/form.css" rel="stylesheet" />
+  
+</head>
+
+<body>
+    <ons-navigator animation="fade" title="Navigator" var="LoginNavigator">
+
+        <ons-page sliding-menu-ignore="true" class="ons-page-fixed">
+
+            <!--<div class="navigation-bar">
+         
+                <div class="navigation-bar__center">
+                    Login
+                </div>
+            </div>-->
+
+            <div class="login-form" ng-controller="LoginController">
+                <!--<form name="authorizationForm" novalidate="" ng-submit="validateForm(authorizationForm)">-->
+                <form name="authorizationForm" novalidate="">
+
+                    <div>
+                        <img alt="logo" src="images/logo.png" style="width: 215px;">
+                    </div>
+                    
+                    <input type="text" name="userName" value="" ng-model="userEmail" required ng-class="{ 'has-errors' : authorizationForm.userName.$invalid, 'no-errors' : authorizationForm.userName.$valid}"
+                           ng-messages-include="commonErrorList.html" placeholder="User Name" class="text-input text-input--underbar loginInput"
+                           style="width: 96%; margin: 2%;" ng-mouseup="Login('userName')">
+                    <div style="display: none;" id="userName" class="error-container" ng-show="authorizationForm.userName.$error" ng-messages="authorizationForm.userName.$error" ng-messages-include="commonErrorList.html"></div>
+
+                    <input type="password" name="password" value="" ng-model="userPassword" required ng-class="{ 'has-errors' : authorizationForm.password.$invalid, 'no-errors' : authorizationForm.password.$valid}"
+                           ng-messages-include="commonErrorList.html" placeholder="Password" class="text-input text-input--underbar"
+                           style="width: 96%; margin: 2%;" ng-mouseup="Login('password')">
+                    <div style="display: none;" id="password" class="error-container" ng-show="authorizationForm.password.$error" ng-messages="authorizationForm.password.$error" ng-messages-include="commonErrorList.html"></div>
+
+                    <ons-template id="commonErrorList.html">
+                        <div class="error" ng-message="required">
+                            <ons-row>
+                                <ons-col width="15px">
+                                    <i class="ion-information-circled"></i>
+                                </ons-col>
+                                <ons-col>
+                                    Required!
+                                </ons-col>
+                            </ons-row>
+                        </div>
+                    </ons-template>
+
+                    <br />
+                    <!--styledBtn-->
+                    <ons-button modifier="large--cta" class="loginButton" style="width:100%;" ng-click="Login('buttonPress'); validateForm(authorizationForm); accessFinelocation()">
+                        Login
+                    </ons-button>
+                    <!--<input class="button button--large--cta" ng-click="Login('buttonPress'); validateForm(authorizationForm)" value="Login" />-->
+
+                    <label id="rememberMeDiv" class="checkbox button--quiet" style="font-size:12px">
+                        <input type="checkbox" id="rememberMe">
+                        <div class="checkbox__checkmark" style="transform: scale(.7,.7);"></div>
+                        Remember Me
+                    </label><br>
+                    <ons-button modifier="quiet" class="forgot-password loginButton2" ng-show="isAndroid" onclick="LoginNavigator.pushPage('signup.html', { animation: 'fade' })">
+                        <!--style="display:none"-->
+                        <ons-icon icon="ion-ios-email-outline" size="20px" fixed-width="false"></ons-icon>
+                        Request Membership
+                    </ons-button>
+
+                    <ons-button modifier="quiet" class="forgot-password loginButton2" onclick="LoginNavigator.pushPage('regionselect.html', { animation: 'fade' })">
+                        <ons-icon icon="ion-ios-world-outline" size="20px" fixed-width="false"></ons-icon>
+                        Region Select
+                    </ons-button>
+
+                    <div ng-controller="loginPasswordRecovery" ng-show="false">
+                        <ons-button modifier="quiet" class="forgot-password" style="font-size:12px">Forgot password?</ons-button>
+                    </div>
+
+                    <br />
+                    <ons-row>
+                        <label style="font-size: 11px; opacity:0.7; margin:0 auto; ">Version {{versionNumber}}</label>
+                    </ons-row>
+                    
+                    
+
+                </form>
+
+                <ons-modal var="notificationModal" style="background-color:rgba(0, 0, 0, 0.86);">
+                    <div id="loginLoadingMsg">
+                        <ons-icon icon="ion-ios-loop" style="font-size:25px" spin="true"></ons-icon>
+                        <br><br>
+                        Please wait.<br>
+                    </div>
+                    <label id="loginErrorMessage"></label><br /><br />
+                    <div id="dismissButton">
+                        <button class="button button--outline" style="width:200px;" ng-click="dismiss()">Dismiss</button><br>
+                    </div>
+
+                </ons-modal>
+
+            </div>
+
+        </ons-page>
+
+    </ons-navigator>
+</body>
+

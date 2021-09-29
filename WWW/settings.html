@@ -1,0 +1,128 @@
+﻿
+<html>
+<head>
+    <title></title>
+</head>
+<body >
+    <ons-navigator animation="fade" var="homeNavigator">
+        <ons-page class="ons-page-fixed">
+
+            <div class="navigation-bar">
+                <div class="navigation-bar__left">
+                    <span class="toolbar-button--quiet navigation-bar__line-height" ng-click="menu.toggle()">
+                        <ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    <label class="toolbarHeader">Settings</label>
+                </div>
+            </div>
+
+
+            <div ng-controller="settingController" sliding-menu-ignore="true">
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-header>Themes</ons-list-header>
+
+                    <ons-list-item modifier="tappable" ng-click="setTheme('basicTheme')">
+                        <label class="radio-button radio-button--list-item">
+                            <input type="radio" id="basic" name="a"><!--checked="checked"-->
+                            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+                            Basic Theme
+                        </label>
+                    </ons-list-item>
+
+                    <ons-list-item modifier="tappable" ng-click="setTheme('blueTheme')">
+                        <label class="radio-button radio-button--list-item">
+                            <input type="radio" id="blue" name="a">
+                            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+                            Blue & Green Theme
+                        </label>
+                    </ons-list-item>
+
+                    <ons-list-item modifier="tappable" ng-click="setTheme('darkTheme')">
+                        <label class="radio-button radio-button--list-item">
+                            <input type="radio" id="dark" name="a">
+                            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+                            Dark Theme
+                        </label>
+                    </ons-list-item>
+
+                    <ons-list-item modifier="tappable" ng-click="setTheme('purpleTheme')">
+                        <label class="radio-button radio-button--list-item">
+                            <input type="radio" id="purple" name="a">
+                            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+                            Purple Theme
+                        </label>
+                    </ons-list-item>
+
+                    <ons-list-item modifier="tappable" ng-click="setTheme('sunshineTheme')">
+                        <label class="radio-button radio-button--list-item">
+                            <input type="radio" id="sunshine" name="a">
+                            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+                            Sunshine Theme
+                        </label>
+                    </ons-list-item>
+
+                    <ons-list-item >
+                        <ons-row>
+                            <div class="button-bar" style="width:100%;">
+                                <div class="button-bar__item" ng-click="setAnimation('lift')">
+                                    <input type="radio" id="animationLift" name="segment-b" checked>
+                                    <button class="button-bar__button">Lift</button>
+                                </div>
+
+                                <div class="button-bar__item" ng-click="setAnimation('fade')">
+                                    <input type="radio" id="animationFade" name="segment-b">
+                                    <button class="button-bar__button">Fade</button>
+                                </div>
+
+                                <div class="button-bar__item" ng-click="setAnimation('slide')">
+                                    <input type="radio" id="animationSlide" name="segment-b">
+                                    <button class="button-bar__button">Slide</button>
+                                </div>
+                            </div>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+               
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-header>Account Settings</ons-list-header>
+
+                    <ons-list-item modifier="tappable" ng-click="clearCredentials()">
+                        <label>Clear Credentials</label>
+                    </ons-list-item>
+
+                    <ons-list-item modifier="tappable" ng-click="resetTheme()">
+                        <label>Reset Theme</label>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <div class="button-bar" style="width:100%;">
+                                <div class="button-bar__item" ng-click="setLanguage('en')">
+                                    <input type="radio" name="segment-lang" ng-checked="lang=='en'">
+                                    <button class="button-bar__button">English</button>
+                                </div>
+
+                                <div class="button-bar__item" ng-click="setLanguage('fr')">
+                                    <input type="radio" name="segment-lang" ng-checked="lang=='fr'">
+                                    <button class="button-bar__button">French</button>
+                                </div>
+
+                                <div class="button-bar__item" ng-click="setLanguage('ru')">
+                                    <input type="radio" name="segment-lang" ng-checked="lang=='ru'">
+                                    <button class="button-bar__button">Russian</button>
+                                </div>
+                            </div>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+               
+            </div>
+
+
+        </ons-page>
+    </ons-navigator>
+</body>
+</html>

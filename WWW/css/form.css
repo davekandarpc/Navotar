@@ -1,0 +1,257 @@
+﻿.form-row {
+    margin: 4px;
+}
+
+.width-full {
+    width: 100%;
+}
+
+.width-half {
+    width: 45% !important;
+}
+
+.lucent {
+    opacity: 0.4;
+}
+
+.note {
+    margin: 12px 8px;
+    font-size: 13px;
+}
+
+.vspc {
+    margin-top: 20px;
+}
+
+.formarea {
+    width: 90%;
+    margin: 10px auto 0 auto;
+}
+
+input[type=email], input[type=password], input[type=text], input[type=tel], input[type=number] {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    outline: none;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.labelFix {
+    display: block;
+    padding-top: 4px;
+    padding-left: 9px;
+}
+
+.empty-label {
+    font-size: 15px;
+    padding-left: 12px;
+    padding-top: 15px;
+    padding-bottom: 24px;
+}
+
+.to-right {
+    display: block;
+    text-align: right;
+    font-size: .85em;
+}
+
+.font-small label {
+    font-size: 15px;
+}
+
+label.value {
+    /*color: #808080;*/
+    color: #463F3F;
+}
+
+.login-form, .customer-form {
+    text-align: center;
+    width: 80%;
+    margin: 60px auto 0;
+}
+
+.popover-mask {
+    background-color: rgba(0,0,0,0.3);
+}
+
+.login-button {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.forgot-password {
+    display: block;
+    margin: 8px auto 0 auto;
+    font-size: 14px;
+}
+
+.action-col {
+    text-align: center;
+    opacity: 0.4;
+    padding: 15px 0 8px;
+}
+
+.center-content {
+    text-align: center;
+}
+
+.navigation-bar__center {
+    text-transform: uppercase;
+}
+
+.button_place {
+    min-height: 380px;
+}
+
+.ellipsis-label {
+    white-space: nowrap;
+    width: 12em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.transparent-input {
+    background-color: transparent;
+    border: none;
+    pointer-events: none;
+    padding: 15px 5px;
+    margin-top: 6px;
+}
+
+.chart-legend {
+    width: 25px;
+    height: 25px;
+    margin-top: 10px;
+    /*border-radius: 2px;*/
+    box-shadow: 0.5px 0.5px 1px;
+}
+
+.center-it {
+    display: table;
+    margin: 0 auto;
+}
+
+hr.faded-hr {
+    margin-top: 1px;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    max-width: 180px;
+    margin-left: 0px;
+}
+
+.signPad {
+    margin: 5px auto;
+    border-left: 1px solid rgba(128, 128, 128, 0.19);
+    border-right: 1px solid rgba(128, 128, 128, 0.19);
+}
+
+
+.profile-card {
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 15px 0px 5px 0px;
+    line-height: 1.4;
+    background-color: #48494a;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px;
+}
+
+.profile-image {
+    width: 75px;
+    border-radius: 15%;
+    background-color: black;
+    border 1px solid white;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 0px 0px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 0px 0px;
+}
+
+.profile-name {
+    font-weight: 200;
+    font-size: 17px;
+}
+
+.profile-id {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+
+
+
+
+/*fade animations*/
+/*.fade.ng-hide {
+  opacity: 0;
+}
+
+.fade.ng-hide-remove,
+.fade.ng-hide-add {
+  display: block !important;
+}
+
+.fade.ng-hide-remove {
+  transition: all linear 1000ms;
+}
+
+.fade.ng-hide-add {
+  transition: all linear 500ms;
+}*/
+
+/*---------------------------------Can Use these device specific selectors------------------------------------*/
+
+/* smartphones, iPhone, portrait 480x320 phones */
+@media (min-height:320px) {
+    .device {
+        background-color: blue;
+    }
+
+    .button_place {
+        min-height: 300px;
+    }
+}
+
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+@media (min-height:641px) {
+    .device {
+        background-color: black;
+    }
+
+    .loginInput {
+        margin-top: 150px !important;
+    }
+
+    .loginButton {
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    .loginButton2 {
+        margin-top: 10px;
+    }
+}
+
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (min-height:961px) {
+    .device {
+        background-color: red;
+    }
+
+    .loginInput {
+        margin-top: 150px !important;
+    }
+
+    .loginButton {
+        margin-top: 60px;
+        margin-bottom: 20px;
+    }
+
+    .loginButton2 {
+        margin-top: 50px;
+    }
+
+    .newCustomerRow ons-row {
+        margin-top: 20px;
+    }
+}

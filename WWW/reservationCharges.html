@@ -1,0 +1,118 @@
+﻿<body>
+    <ons-navigator title="Navigator" var="miscNavigator">
+
+        <ons-page ng-controller="ReservationChargesCntrl">
+
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    <label class="toolbarHeader">Reservation Charges</label>
+                </div>
+            </div>
+
+            <div id="taxChargeList" sliding-menu-ignore="true">
+                <ons-list modifier="inset" style="margin-top: 10px;overflow: hidden;">
+                    <ons-list-header>tax charges</ons-list-header>
+                    <ons-list-item ng-repeat="taxCharge in taxChargesList">
+                        {{taxCharge.TaxName}}
+                        <ons-switch modifier="list-item" ng-model="taxCharge.IsSelected" ng-disabled="!taxCharge.IsOptional"></ons-switch>
+                    </ons-list-item>
+                    <ons-list-item style="color: #5198DB;" ng-show="noTax">
+                        No records found!
+                    </ons-list-item>
+                </ons-list>
+            </div>
+
+            <div id="miscChargeList" ng-show="!noMisc" sliding-menu-ignore="true">
+                <ons-list modifier="inset" style="margin-top: 10px;overflow: hidden;">
+                    <ons-list-header>miscellaneous charges</ons-list-header>
+                    <ons-list-item ng-repeat="miscCharge in miscChargesList">
+                        <ons-row>
+                            <ons-col width="50%">
+                                <ons-row>
+                                   <ons-col class="ellipsis-label">{{miscCharge.Name}}</ons-col>
+                                   <ons-col class="ellipsis-label" ng-if="miscCharge.TaxNotAvailable">(Non Tax)</ons-col>
+                                   <span ng-if="miscCharge.IsQuantity === true" ng-show="miscCharge.IsSelected" style="margin: 0px 5px">
+                                        <select class="form-control" ng-options="n for n in [] | QuantityRange:1:20"
+                                            ng-model="miscCharge.Quantity" style="height: 31px; text-indent: 0; text-align-last: center;border-radius: 5px; margin:7px 0px">
+                                        </select>                                      
+                                    </span>
+                                </ons-row>
+                            </ons-col>
+                            <ons-col>
+                                <input type="tel" style="padding: 15px 5px;margin-top: 6px; text-align:right" class="text-input" ng-model="miscCharge.Value" ng-blur="setCurrency(miscCharge)">
+                            </ons-col>
+                            <ons-col width="7%" style="height: 0">
+                                <input type="text" class="text-input transparent-input" ng-model="currencyformat"><br>
+                            </ons-col>
+                            <ons-col>
+                                <ons-switch id="{{miscCharge.MiscChargeID}}" modifier="list-item" ng-change='setCurrency(miscCharge);IsSelected(miscCharge.MiscChargeID)' ng-model="miscCharge.IsSelected" ng-disabled="miscCharge.IsOptional"></ons-switch>
+                            </ons-col>
+                        </ons-row>
+                        <ons-row>
+                            <div class="button-bar" style="width:100%;" ng-show="miscCharge.IsSelected">
+                                <div class="button-bar__item" ng-repeat="option in miscCharge.MiscOptions">
+                                    <input type="radio" name="{{miscCharge.Name}}" value="{{option.Option}}" ng-click="miscOptionChange(option)">
+                                    <button class="button-bar__button" id="{{option.MischargeOptionID}}">{{option.Option}}</button>
+                                </div>
+                            </div>
+                        </ons-row>
+
+                    </ons-list-item>
+                    <ons-list-item style="color: #5198DB;" ng-show="noMisc">
+                        No records found!
+                    </ons-list-item>
+                </ons-list>
+				
+				<ons-list id="dateStartEnd" modifier="inset" style="margin-top: 10px">
+					<ons-list-item>                  
+                        <ons-row>						
+                            <ons-col width="50%">
+                                <label>Start Date</label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>:</label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="date" name="startDate" value="" ng-model="startDate" 
+                                style="width:100%" class="text-input text-input--underbar" >    
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+					
+					<ons-list-item>
+						<ons-row>						
+                            <ons-col width="50%">
+                                <label>
+                                    End Date
+                                </label>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <label>
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="date" name="endDate" value="" ng-model="endDate"
+                                style="width:100%" class="text-input text-input--underbar">     
+                            </ons-col>          
+                        </ons-row>
+					</ons-list-item>
+				</ons-list>
+            </div>
+            <ons-list modifier="inset" style="margin-top: 10px;">
+                <ons-button ng-disabled="loading" modifier="large--cta" ng-click="submit()">
+                    Create Reservation
+                </ons-button>
+            </ons-list>
+
+        </ons-page>
+
+    </ons-navigator>
+</body>
+

@@ -1,0 +1,336 @@
+﻿<head>
+    <link href="css/App/checkOut.css" rel="stylesheet" />
+</head>
+
+<body>
+    <ons-navigator title="Navigator" var="checkOutNavigator">
+        <ons-page class="font-small ons-page-fixed" ng-controller="checkOutFormCntrl">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" ng-click="NavigateBackto()">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    Check Out
+                </div>
+            </div>
+            <form name="checkOutForm" id="checkOutForm" novalidate="">
+
+                <ons-list modifier="inset" style="margin-top: 10px;overflow: hidden;">
+                    <ons-list-item style="line-height: 1;">
+                        <ons-row style="height: 41px;">
+                            <ons-col width="45%">
+                                <input type="text" style="background-color: transparent;border: none;pointer-events: none; padding: 15px 5px; margin-top: 6px;" class="text-input" placeholder="Agreement No" value="Agreement No"><br>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <input type="text" style="background-color: transparent;border: none;pointer-events: none; padding: 15px 5px; margin-top: 6px;" class="text-input" placeholder=":" value=":"><br>
+                            </ons-col>
+                            <ons-col>
+                                <input type="text" style="padding: 15px 5px; margin-top: 6px;" class="text-input" ng-model="info.agreementNo">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item style="line-height: 1;">
+                        <ons-row style="height: 41px;">
+                            <ons-col width="45%">
+                                <input type="text" style="background-color: transparent;border: none;pointer-events: none; padding: 15px 5px; margin-top: 6px;" class="text-input" placeholder="Agreement No" value="Agreement Type"><br>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <input type="text" style="background-color: transparent;border: none;pointer-events: none; padding: 15px 5px; margin-top: 6px;" class="text-input" placeholder=":" value=":"><br>
+                            </ons-col>
+                            <ons-col>
+                                <select class="form-control" ng-options='item as item.TypeName for item in agreementTypes' ng-model="info.TypeName"
+                                        style="width: 100%; height: 30px; text-indent: 0; text-align-last: center;border-radius: 5px; margin-top: 7px;"></select>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-header>CHECK IN & OUT DETAILS</ons-list-header>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%" style="margin: auto;">
+                                <label>Check Out </label>
+                            </ons-col>
+                            <ons-col width="65%">
+                                <input style="width:100%;" type="datetime-local" name="checkOutDate" value="" ng-model="info.checkOutDate" required ng-class="{ 'has-errors' : checkOutForm.checkOutDate.$invalid, 'no-errors' : checkOutForm.checkOutDate.$valid}"
+                                       ng-messages-include="checkOutnCommonErrorList.html" placeholder="Date & Time" class="text-input text-input--transparent" ng-mouseup="validateCheckOut('checkOutDate')">
+                                <div style="display: none; margin:-9px 0;" id="checkOutDate" class="error-container" ng-show="checkOutForm.checkOutDate.$error" ng-messages="checkOutForm.checkOutDate.$error" ng-messages-include="checkOutCommonErrorList.html"></div>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%" style="margin: auto;">
+                                <label>Check In </label>
+                            </ons-col>
+                            <ons-col width="65%">
+                                <input style="width:100%; " type="datetime-local" name="checkInDate" value="" ng-model="info.checkInDate" required ng-class="{ 'has-errors' : checkOutForm.checkInDate.$invalid, 'no-errors' : checkOutForm.checkInDate.$valid}"
+                                       ng-messages-include="checkOutnCommonErrorList.html" placeholder="Date & Time" class="text-input text-input--transparent" ng-mouseup="validateCheckOut('checkInDate')">
+                                <div style="display: none;  margin:-9px 0;" id="checkInDate" class="error-container" ng-show="checkOutForm.checkInDate.$error" ng-messages="checkOutForm.checkInDate.$error" ng-messages-include="checkOutCommonErrorList.html"></div>
+                            </ons-col>
+                        </ons-row>
+
+
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%">
+                                <label>Location</label>
+                            </ons-col>
+                            <ons-col>
+                                <select class="form-control" ng-options='item as item.Value for item in checkOutLocations' ng-model="info.location" ng-change="setLocation(info.location)"
+                                        style="width: 100%; height: 30px; text-indent: 0; text-align-last: center;border-radius: 5px;"></select>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%">
+                                <label>Vehicle Type</label>
+                            </ons-col>
+                            <ons-col>
+                                <select class="form-control" ng-options='item as item.Value for item in checkOutVehicleTypes' ng-model="info.vehicletype" ng-change="setVehType(info.vehicletype)"
+                                        style="width: 100%; height: 30px; text-indent: 0; text-align-last: center; border-radius: 5px;"></select>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%">
+                                <label>Vehicle </label>
+                            </ons-col>
+                            <ons-col>
+                                <select class="form-control" ng-options='item as item.FullVehicleNameWithLicense for item in checkOutVehicles' ng-model="info.vehicle" ng-change="setVehicle(info.vehicle)"
+                                        style="width: 100%; height: 30px; text-indent: 0; text-align-last: center; border-radius: 5px;"></select>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%">
+                                <label>Fuel Level</label>
+                            </ons-col>
+                            <ons-col>
+                                <select class="form-control" ng-options='item as item.Value for item in checkOutfuelLevels' ng-model="info.fuelLevel"
+                                        style="width: 100%; height: 30px; text-indent: 0; text-align-last: center; border-radius: 5px;"></select>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item sliding-menu-ignore="true">
+                        <ons-row>
+                            <ons-col width="35%">
+                                <label>Odometer</label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="number" style="padding: 15px 5px; margin-top: 6px;" class="text-input" ng-model="info.vehicle.CurrentOdometer">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                </ons-list>
+
+                <ons-row ng-show="false">
+                    <ons-col>
+                        <ons-list modifier="inset" style="margin-top: 10px">
+                            <ons-list-item style="line-height: 1;">
+                                <ons-row>
+                                    <ons-col width="80%">
+                                        <input type="text" style="padding: 15px 5px; margin-top: 6px;" placeholder="Promo Code" class="text-input" ng-model="info.promoCode">
+                                    </ons-col>
+                                    <ons-col>
+                                    </ons-col>
+                                    <ons-col width="15%">
+                                        <ons-icon icon="ion-ios-checkmark-outline" size="35px" class="button--quiet" ng-click="applyPromo()">
+                                        </ons-icon>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+                        </ons-list>
+                    </ons-col>
+
+                </ons-row>
+
+                <ons-list modifier="inset" style="margin-top: 10px; display:none">
+                    <ons-list-header>VEHICLE INFORMATION</ons-list-header>
+                    <ons-list-item>
+                        <ons-row ng-controller="checkOutAccordian" sliding-menu-ignore="true">
+                            <ons-col width="60%">
+                                <input type="text" id="plateTxt" var="plateText" class="text-input--transparent" ng-model="plateNumber" placeholder="Plate Number" />
+                            </ons-col>
+                            <ons-col width="40%">
+                                <label class="button button--quiet accordianButton" ng-click="getVehicleInfo()" disabled="true">
+                                    <i class="ion-checkmark-circled"></i>
+                                    <b ng-show="isCollapsed">Show</b>
+                                    <b ng-show="!isCollapsed">Hide</b>
+                                </label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+                <!--<div id="checkOutVehicleInfo" style="display:none">
+                    <ons-list modifier="inset">
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Model</label>
+                                </ons-col>
+                                <ons-col width="3%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="info.vehicleInfo.Model"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Number</label>
+                                </ons-col>
+                                <ons-col width="3%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="info.vehicleInfo.VehcileNo"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Make</label>
+                                </ons-col>
+                                <ons-col width="3%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="info.vehicleInfo.Make"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Year</label>
+                                </ons-col>
+                                <ons-col width="3%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="info.vehicleInfo.Year"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Odometer</label>
+                                </ons-col>
+                                <ons-col width="3%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="info.vehicleInfo.CurrentOdometer"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                    </ons-list>
+
+                    <ons-list modifier="inset" style="margin-top: 10px; display:none">
+                        <ons-list-header>CHARGERS</ons-list-header>
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Hourly Rate</label>
+                                </ons-col>
+                                <ons-col width="3%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <input type="text" class="text-input--transparent" ng-model="info.vehicleInfo.HourlyRate" placeholder="" />
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Daily Rate</label>
+                                </ons-col>
+                                <ons-col width="3%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <input type="text" class="text-input--transparent" ng-model="info.vehicleInfo.DailyRate" placeholder="" />
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Weekly Rate</label>
+                                </ons-col>
+                                <ons-col width="3%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <input type="text" class="text-input--transparent" ng-model="info.vehicleInfo.WeeklyRate" placeholder="" />
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="35%">
+                                    <label>Monthly Rate</label>
+                                </ons-col>
+                                <ons-col width="3%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <input type="text" class="text-input--transparent" ng-model="info.vehicleInfo.MonthlyRate" placeholder="144.00" />
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                    </ons-list>
+                </div>-->
+
+                <ons-template id="checkOutCommonErrorList.html">
+                    <div class="error" ng-message="required">
+                        <ons-row>
+                            <ons-col width="15px">
+                                <i class="ion-information-circled"></i>
+                            </ons-col>
+                            <ons-col>
+                                Required!
+                            </ons-col>
+                        </ons-row>
+                    </div>
+                </ons-template>
+
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-button modifier="large--cta" id="checkOutConfirm" disabled ng-click="validateCheckOut('buttonPress'); validateForm(checkOutForm)">
+                        Continue
+                    </ons-button>
+                </ons-list>
+
+
+            </form>
+
+
+
+        </ons-page>
+    </ons-navigator>
+</body>
+

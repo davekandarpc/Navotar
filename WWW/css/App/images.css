@@ -1,0 +1,72 @@
+﻿.list-item-container {
+    line-height: 1;
+    padding: 15px 0px 15px 15px;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+
+ons-carousel-item {
+    display: table;
+    text-align: center;
+}
+
+.item-label {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    line-height: 1;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.cover-label {
+    text-align: center;
+    left: 0px;
+    width: 100%;
+    color: white;
+}
+
+.toggler-prev {
+    pointer-events: auto;
+    cursor: pointer;
+    float: left;
+    /*width: 65px;*/
+}
+
+.toggler-next {
+    pointer-events: auto;
+    cursor: pointer;
+    float: right;
+    /*width: 65px;*/
+}
+
+.oldImageTitle {
+    font-size: 20px !important;
+    color: white;
+    background-color: #40ACF9;
+    padding: 10px;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+.list-item-action-left {
+    position: absolute;
+    left: 10px;
+    top: 0px;
+}
+
+.list-item-action-right {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+}
+
+.list-item-action > ons-icon {
+    margin-top: 14px;
+}

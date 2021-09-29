@@ -1,0 +1,134 @@
+<body>
+    <!-- Invoice By MS-->
+    <ons-navigator title="Navigator" var="invoiceNavigator">
+        <ons-page class="ons-page-fixed" ng-controller="invoiceViewCntrl" style="background-color: white">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    View Invoice
+                </div>
+            </div>
+            <form name="invoiceViewForm" id="invoiceViewForm" novalidate="" style="padding: 10px">
+                <ons-list modifier="inset" style="margin-top: 10px;padding: 10px" >
+
+                    <ons-row style="padding: 5px">
+
+                        <ons-col class="ellipsis-label" width="40%">
+                            <label style="color: rgb(62, 62, 235);font-size: 12px">Invoice Date</label>
+                        </ons-col>
+                        <ons-col width="2">
+                            :
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width="25%">
+                            <label style="font-size: 12px">{{invoiceDate}}</label>
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width='20%'>
+                            <label style="color: rgb(62, 62, 235);font-size: 12px">Invoice No</label>
+                        </ons-col>
+                        <ons-col width="2">
+                            :
+                        </ons-col>
+                        <ons-col class="ellipsis-label">
+                            <label style="font-size: 12px">{{invoiceNo}}</label>
+                        </ons-col>
+
+
+                    </ons-row>
+                    <ons-row style="padding: 5px">
+                        <ons-col class="ellipsis-label" width="40%">
+                            <label style="color: rgb(62, 62, 235);font-size:12px">Agreement No</label>
+                        </ons-col>
+                        <ons-col width="2">
+                            :
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width="20%">
+                            <label style="font-size: 12px">{{agreementNo}}</label>
+                        </ons-col>
+                        <ons-col width="20%">
+                            <label style="color: rgb(62, 62, 235);font-size:12px">Amount</label>
+                        </ons-col>
+                        <ons-col width="2">
+                            :
+                        </ons-col>
+                        <ons-col>
+                            <label style="font-size:12px">{{currency}}{{amount | number :2}}</label>
+                        </ons-col>
+                    </ons-row>
+
+
+
+                </ons-list>
+                <table style="width: 100%; text-align: center; background: white;padding: 10px; border: none; margin-top: 15px">
+                    <thead>
+                        <th width="34%" style="color:green">Item</th>
+                        <th width="10%" style="color:green">Qty</th>
+                        <th width="20%" style="color:green">Rate</th>
+                        <th width="26%" style="color:green">Amount</th>
+                    </thead>
+                    
+                </table>
+                <ons-list ng-repeat="invoicelist in invoiceItemList">
+                    <ons-row style="padding: 5px">
+                        <ons-col width="36%" style="font-size:14px;">{{invoicelist.description}}</ons-col>
+                        <ons-col width="10%" style="font-size:14px;text-align: center;margin-left: 5px">{{invoicelist.quantity }}</ons-col>
+                        <ons-col width="20%" style="font-size:14px;text-align: center;margin-left: 5px">{{currency}} {{invoicelist.rate | number :2}}</ons-col>
+                        <ons-col width="24%" style="font-size:14px;color:red;text-align: center;margin-left: 9px">{{currency}} {{invoicelist.amount | number :2}}</ons-col>
+
+                    </ons-row>
+                </ons-list>
+                <ons-list style="margin-top: 45px">
+                    <ons-row style="padding: 5px">
+                        <ons-col class="ellipsis-label" width="80%">
+                            <label style="font-size: 14px;"> Sub Total</label>
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width="20%">
+                            <lable style="font-size: 14px;color: red">{{currency}} {{subTotal | number :2 }}</lable>
+                        </ons-col>
+                    </ons-row>
+                    <ons-row style="padding: 5px">
+                        <ons-col class="ellipsis-label" width="80%">
+                            <label style="font-size: 14px;"> Tax</label>
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width="20%">
+                            <lable style="font-size: 14px;color: red">{{currency}} {{tax | number : 2}}</lable>
+                        </ons-col>
+                    </ons-row>
+                    <ons-row style="padding: 5px">
+                        <ons-col class="ellipsis-label" width="80%">
+                            <label style="font-size: 14px;"> Total Mis Charge(Non-Tax)</label>
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width="20%">
+                            <lable style="font-size: 14px;color: rgb(221, 73, 73)">{{currency}} {{totalMisCharge | number :2}}</lable>
+                        </ons-col>
+                    </ons-row>
+                    <ons-row style="padding: 5px">
+                        <ons-col class="ellipsis-label" width="80%">
+                            <label style="font-size: 14px;"> Total Amount </label>
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width="20%">
+                            <lable style="font-size: 14px; color:green" >{{currency}} {{totalAmount | number :2}}</lable>
+                        </ons-col>
+                    </ons-row>
+                </ons-list>
+                <div style="height: 25px"></div>
+                <ons-col width='100%' >
+                    <button type="submit" id="print" class="button button--large--cta" style="width:100%;margin-bottom: 10px"
+                        ng-click="printPDF()" ng-disabled="loading">
+                        Print
+                    </button>
+                </ons-col>
+               <!--  <ons-col width='100%'>
+                    <button type="submit" id="email" class="button button--large--cta" style="width:100%;margin-bottom: 10px"
+                        ng-click="navigateToEmailInvoice()" ng-disabled="loading">
+                        E-Mail
+                    </button>
+                </ons-col> -->
+                
+            </form>
+        </ons-page>
+    </ons-navigator>
+</body>

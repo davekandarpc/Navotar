@@ -1,0 +1,104 @@
+<body><!-- Invoice By MS-->
+    <ons-navigator title="Navigator" var="invoiceNavigator">
+        <ons-page class="ons-page-fixed" ng-controller="invoiceAddCntrl">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left"  ng-click="BackToView();">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    Invoice
+                </div>
+                <div class="navigation-bar__right" >
+                    <div ng-click="navigateToAddInvoice()">
+                        <ons-icon class="button button--quiet" icon="ion-plus" size="23px" fixed-width="false"></ons-icon>
+                    </div>
+                </div>
+            </div>
+            <form name="invoiceForm" id="invoiceForm" novalidate="">
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>
+                                    Agreement No
+                                </label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+            
+                            <ons-col>
+                                <label class="value" ng-bind="tip.AgreementNo"></label>
+                            </ons-col>
+                        </ons-row>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>
+                                    Customer Name
+                                </label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                        
+                            <ons-col>
+                                <label class="value" ng-bind="tip.Firstname"></label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+            
+                </ons-list>
+            </form>
+
+ <!-- <div sliding-menu-ignore="true" ng-hide="hideSearch" ng-class="{fade: fadeSearch}" id="searchContent2" class="ContenetScroller ng-anim" style="overflow: scroll;"> -->
+        <ons-list>
+                <ons-list-item ng-repeat="invoice in InvoiceData" style="border: 1px groove gray;margin-left: 8px;margin-right: 8px;margin-top: 12px;border-radius: 5px; padding: 10px;" ng-click="navigatetoViewInvoice(invoice.invoiceId)">
+                    <ons-row>
+        
+                        <ons-col class="ellipsis-label" width="20%">
+                            <label style="color: rgb(62, 62, 235);font-size: 13px;font-weight: 600">Invoice No</label>
+                        </ons-col>
+                        <ons-col width="2">
+                            :
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width="25%">
+                            <label style="font-size: 13px">{{invoice.invoiceNo}}</label>
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width='13%'>
+                            <label style="color: rgb(62, 62, 235);font-size: 13px;font-weight: 600">Date</label>
+                        </ons-col>
+                        <ons-col width="2">
+                            :
+                        </ons-col>
+                        <ons-col class="ellipsis-label">
+                            <label style="font-size: 13px">{{invoice.invoiceDate}}</label>
+                        </ons-col>
+        
+        
+                    </ons-row>
+                    <ons-row>
+                        <ons-col class="ellipsis-label" width="30%">
+                            <label style="color: rgb(62, 62, 235);font-size:13px;font-weight: 600">Invoice Amount</label>
+                        </ons-col>
+                        <ons-col width="2">
+                            :
+                        </ons-col>
+                        <ons-col class="ellipsis-label" width="20%">
+                            <label style="font-size: 13px">{{invoice.invoiceAmount | number : 2}}</label>
+                        </ons-col>
+                        <ons-col width="45%">
+                            <div>
+                                <ons-icon style="margin-left: 120px" class="button button--quiet" icon="ion-ios-arrow-right" size="23px" fixed-width="false"></ons-icon>
+                            </div>
+                        </ons-col>
+                    </ons-row>                   
+                    
+                    
+                </ons-list-item>
+            </ons-list>
+            <!-- </div> -->
+        </ons-page>
+    </ons-navigator>
+</body>

@@ -1,0 +1,207 @@
+<head>
+    <link href="css/App/checkOut.css" rel="stylesheet" />
+</head>
+
+<body>
+    <ons-navigator title="Navigator" var="checkOutNavigator">
+        <ons-page class="font-small ons-page-fixed" ng-controller="ReservationCheckOutCtrl">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" ng-click="NavigateBackto()">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    Check Out
+                </div>
+            </div>
+            <form name="checkOutForm" id="checkOutForm" novalidate="">
+
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-item style="line-height: 1;">
+                        <ons-row style="height: 41px;">
+                            <ons-col width="45%">
+                                <input type="text" style="background-color: transparent;border: none;pointer-events: none; padding: 15px 5px; margin-top: 6px;" class="text-input" value="Reservation Type"><br>
+                            </ons-col>
+                            <ons-col width="5%">
+                                <input type="text" style="background-color: transparent;border: none;pointer-events: none; padding: 15px 5px; margin-top: 6px;" class="text-input" placeholder=":" value=":"><br>
+                            </ons-col>
+                            <ons-col>
+                                <div class="selectContainer">
+                                    <select class="form-control" ng-options='item as item.TypeName for item in resTypes' ng-model="resType" ng-change="changeType()"
+                                            style="width: 90%; height: 30px; margin-left: 5%; margin-top: 10px; text-indent: 0; text-align-last: center; border-radius: 5px;"></select>
+                                </div>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px" sliding-menu-ignore="true">
+                    <ons-list-header>CHECK IN & OUT INFORMATION</ons-list-header>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%" style="margin: auto;">
+                                <label>Check Out </label>
+                            </ons-col>
+                            <ons-col width="65%">
+                                <input style="width:100%;" type="datetime-local" name="checkOutDate" value="" ng-model="info.checkOutDate" required ng-class="{ 'has-errors' : checkOutForm.checkOutDate.$invalid, 'no-errors' : checkOutForm.checkOutDate.$valid}"
+                                       placeholder="Date & Time" class="text-input text-input--transparent" ng-mouseup="validateCheckOut('checkOutDate')">
+                                <div style="display: none; margin:-9px 0;" id="checkOutDate" class="error-container" ng-show="checkOutForm.checkOutDate.$error" ng-messages="checkOutForm.checkOutDate.$error" ng-messages-include="resCheckoutErrorList.html"></div>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%" style="margin: auto;">
+                                <label>Check In </label>
+                            </ons-col>
+                            <ons-col width="65%">
+                                <input style="width:100%; " type="datetime-local" name="checkInDate" value="" ng-model="info.checkInDate" required ng-class="{ 'has-errors' : checkOutForm.checkInDate.$invalid, 'no-errors' : checkOutForm.checkInDate.$valid}"
+                                       placeholder="Date & Time" class="text-input text-input--transparent" ng-mouseup="validateCheckOut('checkInDate')">
+                                <div style="display: none;  margin:-9px 0;" id="checkInDate" class="error-container" ng-show="checkOutForm.checkInDate.$error" ng-messages="checkOutForm.checkInDate.$error" ng-messages-include="resCheckoutErrorList.html"></div>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%">
+                                <label>Location</label>
+                            </ons-col>
+                            <ons-col>
+                                <select class="form-control" ng-options='item as item.Value for item in checkOutLocations' ng-model="info.location" ng-change="setLocation(info.location)"
+                                        style="width: 100%; height: 30px; text-indent: 0; text-align-last: center;border-radius: 5px;"></select>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%">
+                                <label>Vehicle Type</label>
+                            </ons-col>
+                            <ons-col>
+                                <select class="form-control" ng-options='item as item.Value for item in checkOutVehicleTypes' ng-model="info.vehicletype" ng-change="setVehType(info.vehicletype)"
+                                        style="width: 100%; height: 30px; text-indent: 0; text-align-last: center; border-radius: 5px;"></select>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="35%">
+                                <label>Vehicle </label>
+                            </ons-col>
+                            <ons-col>
+                                <select class="form-control" ng-options='item as item.FullVehicleNameWithLicense for item in checkOutVehicles' ng-model="info.vehicle"
+                                        style="width: 100%; height: 30px; text-indent: 0; text-align-last: center; border-radius: 5px;"></select>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px" sliding-menu-ignore="true">
+
+                    <ons-list-header>PROMOTIONS</ons-list-header>
+
+                    <ons-list-item style="line-height: 1;">
+                        <ons-row>
+                            <ons-col width="80%">
+                                <input type="text" style="padding: 15px 5px; margin-top: 6px;" placeholder="Promo Code" class="text-input" ng-model="info.promoCode">
+                            </ons-col>
+                            <ons-col>
+                            </ons-col>
+                            <ons-col width="15%">
+                                <ons-icon icon="ion-ios-checkmark-outline" size="35px" class="button--quiet" ng-click="applyPromo()">
+                                </ons-icon>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item style="line-height: 1;" ng-show="true">
+                        <ons-row>
+                            <ons-col width="35%" style="padding-top: 12px;">
+                                <label>Deposit</label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="text" style="padding: 15px 5px; margin-top: 6px;" placeholder="Deposit" class="text-input" ng-model="info.deposit">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+                <ons-list modifier="inset" style="margin-top: 10px" sliding-menu-ignore="true">
+
+                    <ons-list-header>SUMMARY OF DEPOSIT</ons-list-header>
+
+                    <ons-list-item style="line-height: 1;">
+                        <ons-row>
+                            <ons-col width="50%" style="padding-top: 12px;" class="ellipsis-label">
+                                <label>Full Deposit</label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="tel" style="padding: 15px 5px; margin-top: 6px;" placeholder="" class="text-input to-right" 
+                                       ng-model="info.FullDeposit" ng-blur="tofixednum()">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item style="line-height: 1;">
+                        <ons-row>
+                            <ons-col width="50%" style="padding-top: 12px;" class="ellipsis-label">
+                                <label>Installment Amount</label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="tel" style="padding: 15px 5px; margin-top: 6px;" placeholder="" class="text-input to-right" 
+                                       ng-model="info.Instalment" ng-blur="tofixednum()">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item style="line-height: 1;">
+                        <ons-row>
+                            <ons-col width="50%" style="padding-top: 12px;" class="ellipsis-label">
+                                <label>Per Installment Amount</label>
+                            </ons-col>
+                            <ons-col>
+                            <input type="tel" style="padding: 15px 5px; margin-top: 6px;" placeholder="" class="text-input to-right" 
+                                   ng-model="info.InstalmentPerDay" ng-blur="tofixednum()">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item style="line-height: 1;">
+                        <ons-row>
+                            <ons-col width="50%" style="padding-top: 12px;" class="ellipsis-label">
+                                <label>Installment Qty</label>
+                            </ons-col>
+                            <ons-col>
+                                <input type="tel" style="padding: 15px 5px; margin-top: 6px;" placeholder="" class="text-input to-right" 
+                                       ng-model="info.InstalmentDays" ng-blur="tofixednum()">
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+                <ons-template id="resCheckoutErrorList.html">
+                    <div class="error" ng-message="required">
+                        <ons-row>
+                            <ons-col width="15px">
+                                <i class="ion-information-circled"></i>
+                            </ons-col>
+                            <ons-col>
+                                Required!
+                            </ons-col>
+                        </ons-row>
+                    </div>
+                </ons-template>
+
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-button modifier="large--cta" ng-disabled="loading" ng-click="validateCheckOut('buttonPress'); validateForm(checkOutForm)">
+                        Continue
+                    </ons-button>
+                </ons-list>
+
+            </form>
+        </ons-page>
+    </ons-navigator>
+</body>
+

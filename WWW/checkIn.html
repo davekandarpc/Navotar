@@ -1,0 +1,531 @@
+﻿<body>
+    <ons-navigator title="Navigator" var="checkInNavigator">
+
+        <ons-page class="ons-page-fixed">
+
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    Check In
+                </div>
+                <div  class="navigation-bar__right" ng-controller="checkInAddDamages">
+                    <div ng-If="noDamageScreen===-1" ng-click="navigateToCheckDamage()">
+                        <ons-icon class="button button--quiet" icon="ion-settings" size="23px" fixed-width="false"></ons-icon>
+                    </div>
+                </div>
+            </div>
+
+            <form name="checkInForm" id="checkInForm" ng-controller="checkInFormCntrl" novalidate="">
+                <div class="font-small">
+                    <ons-list modifier="inset" style="margin-top: 10px">
+                        <ons-list-header>CHECK Out INFORMATION</ons-list-header>
+
+                        <ons-list-item>
+                            <div ng-controller="checkOutDetails">
+
+                                <ons-row>
+                                    <ons-col>
+                                        <label>More Info</label>
+                                    </ons-col>
+                                  
+                                    <ons-col width="10%">
+                                        <ons-icon class="button button--quiet" icon="ion-ios-information-outline" size="28px" fixed-width="false"
+                                                  ng-click="popover.show($event)"></ons-icon>
+                                    </ons-col>
+                                </ons-row>
+
+                            </div>
+                        </ons-list-item>
+                    </ons-list>
+
+
+
+                    <ons-list modifier="inset" style="margin-top: 10px; overflow:hidden">
+                        <ons-list-header>CHECK IN INFORMATION</ons-list-header>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <label>Return date & time :</label>
+                            </ons-row>
+                            <ons-row style="margin-top: -19px;">
+                                <ons-col>
+                                    <input style="width:100%;" type="datetime-local" name="vehicleCheckInDate" value="" ng-model="tip.ReturnDate" required ng-class="{ 'has-errors' : checkInForm.vehicleCheckInDate.$invalid, 'no-errors' : checkInForm.vehicleCheckInDate.$valid}"
+                                           ng-messages-include="checkInCommonErrorList.html" placeholder="Date & Time" class="text-input text-input--transparent" ng-mouseup="validateCheckin('vehicleCheckInDate')" ng-change="validateReturnDate()">
+                                    <div style="display: none;  margin:-9px 0;" id="vehicleCheckInDate" class="error-container" ng-show="checkInForm.vehicleCheckInDate.$error" ng-messages="checkInForm.vehicleCheckInDate.$error" ng-messages-include="checkInCommonErrorList.html"></div>
+                                </ons-col>
+
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <div ng-controller="checkInlocation">
+                                <ons-row>
+                                    <ons-col width="40%">
+                                        <label>Location</label>
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        :
+                                    </ons-col>
+                                    <ons-col>
+                                        <select class="form-control" ng-options='item as item.Value for item in checkInlocations' ng-model="info.location" ng-change="setLocation()"
+                                                style="width: 100%; height: 30px; text-indent: 0; text-align-last: center;border-radius: 5px;"></select>
+                                    </ons-col>
+                                </ons-row>
+                            </div>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <div ng-controller="checkInStatus">
+                                <ons-row>
+                                    <ons-col width="40%">
+                                        <label>Status</label>
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        :
+                                    </ons-col>
+                                    <ons-col>
+                                        <select class="form-control" ng-options='item as item.Value for item in checkInStatus' ng-model="info.status" ng-change="setStatus()"
+                                                style="width: 100%; height: 30px; text-indent: 0; text-align-last: center;border-radius: 5px;"></select>
+                                    </ons-col>
+                                </ons-row>                               
+                            </div>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <div ng-controller="checkInfuelLevel">
+                                <ons-row>
+                                    <ons-col width="40%">
+                                        <label>Fuel Level</label>
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        :
+                                    </ons-col>
+                                    <ons-col>
+                                        <select class="form-control" ng-options='item as item.Value for item in checkInfuelLevels' ng-model="info.fuelLevel" ng-change="setFuelLevel()"
+                                                style="width: 100%; height: 30px; text-indent: 0; text-align-last: center;border-radius: 5px;"></select>
+                                    </ons-col>
+
+                                </ons-row>
+                            </div>
+                        </ons-list-item>
+                        <ons-list-item sliding-menu-ignore="true">
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <label>Odometer</label>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <input type="tel" name="checkinVehicleOdometer" value="" ng-model="tip.CheckinOdometer" required ng-class="{ 'has-errors' : checkInForm.checkinVehicleOdometer.$invalid, 'no-errors' : checkInForm.checkinVehicleOdometer.$valid}"
+                                           style="width:100%;" ng-messages-include="commonErrorList.html" placeholder="Odometer In" class="text-input text-input--transparent" ng-mouseup="validateCheckin('checkinVehicleOdometer')" ng-blur="validateOdometerIn()">
+                                    <div style="display: none;  margin:-9px 0;" id="checkinVehicleOdometer" class="error-container" ng-show="checkInForm.checkinVehicleOdometer.$error" ng-messages="checkInForm.checkinVehicleOdometer.$error" ng-messages-include="commonErrorList.html"></div>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                    </ons-list>
+                    <ons-list modifier="inset" style="margin-top: 10px; overflow:hidden">
+                        <ons-list-item sliding-menu-ignore="true">
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <label>Promo Code</label>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                  <label>{{tip.PromoCode}}</label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                    </ons-list>
+
+                    <ons-list modifier="inset" style="margin-top: 10px">
+                        <ons-list-header>PAYMENT DETAILS</ons-list-header>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <label>Rate Charge</label>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="tip.baseCharge"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <label>Promotion</label>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="tip.PromoDiscount"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <label>Base Charge</label>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="tip.FinalBaseCharge"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <div >
+
+                                <ons-row>
+                                    <ons-col width="40%">
+                                        <label>Other Charges</label>
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        :
+                                    </ons-col>
+                                    <ons-col width="39%">
+                                        <label class="value" ng-bind="tip.OtherCharges"></label>
+                                    </ons-col>
+                                    <ons-col>
+                                        <ons-icon class="button button--quiet" icon="ion-ios-information-outline" size="28px" fixed-width="false"
+                                                  ng-click="popover.show($event)"></ons-icon>
+                                    </ons-col>
+                                </ons-row>
+
+                            </div>
+                        </ons-list-item>
+
+                        <ons-template id="checkInExtrtaPopover.html">
+                            <!--direction="up"-->
+                            <ons-popover direction="up down" cancelable  style="width:95%">
+                                <div style="text-align: center; overflow: scroll;" class="font-small" ng-controller="popOverExtraCharges">
+                                    <ons-list>
+                                        <ons-list-item>
+                                            <ons-row>
+                                                <ons-col width="60%">
+                                                    Miscellaneous
+                                                </ons-col>
+                                                <ons-col width="5%">
+                                                    :
+                                                </ons-col>
+                                                <ons-col>
+                                                    <label class="value" ng-bind="tip.MiscTax"></label>
+                                                </ons-col>
+                                            </ons-row>
+                                        </ons-list-item>
+
+                                        <ons-list-item>
+                                            <ons-row>
+                                                <ons-col width="60%">
+                                                    Extra KM
+                                                </ons-col>
+                                                <ons-col width="5%">
+                                                    :
+                                                </ons-col>
+                                                <ons-col>
+                                                    <label class="value" ng-bind="tip.KMCharge"></label>
+                                                </ons-col>
+                                            </ons-row>
+                                        </ons-list-item>
+
+                                        <ons-list-item>
+                                            <ons-row>
+                                                <ons-col width="60%">Extra Duration</ons-col>
+                                                <ons-col width="5%">
+                                                    :
+                                                </ons-col>
+                                                <ons-col>
+                                                    <label class="value" >{{tip.ExtraDuration}}</label>
+                                                </ons-col>
+                                            </ons-row>
+                                        </ons-list-item>
+                                    </ons-list>
+                                </div>
+                            </ons-popover>
+                        </ons-template>
+
+                        <ons-list-item sliding-menu-ignore="true">
+                            <ons-row>
+                                <ons-col width="40%"> <label>Pre Tax</label> </ons-col>
+                                <ons-col width="5%">:</ons-col>
+                                <ons-col  width="49%">
+                                    <input type="tel" class="text-input--transparent" ng-model="tip.PreTax" placeholder="" ng-blur="calculateCharges()" />
+                                </ons-col>
+                                <ons-col>
+                                    <ons-icon icon="ion-edit" var="additionalCharge" size="18px" style="opacity:0.5;" fixed-width="false"></ons-icon>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item style="background-color:#E0E0E0">
+                            <ons-row>
+                                <ons-col width="40%"><label>Sub Total</label></ons-col>
+                                <ons-col width="5%">: </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="tip.SubTotal"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%"> <label>Total Tax</label> </ons-col>
+                                <ons-col width="5%"> :</ons-col>
+                                <ons-col><label class="value">{{tip.TotalTax}} (@ {{tip.TaxPercentage}}%)</label> </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%"> <label>Non-Tax Misc</label> </ons-col>
+                                <ons-col width="5%"> :</ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="tip.MiscNonTax"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%"><label>Fuel Charge</label></ons-col>
+                                <ons-col width="5%">: </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="tip.FuelCharge"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item sliding-menu-ignore="true">
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <label>Additional</label>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col width="49%">
+                                    <input type="tel" class="text-input--transparent" ng-model="tip.AdditionalCharge" ng-blur="calculateCharges()" />
+                                </ons-col>
+                                <ons-col >
+                                    <ons-icon icon="ion-edit" var="additionalCharge" size="18px" style="opacity:0.5;" fixed-width="false"></ons-icon>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%"> <label>Toll Charge</label> </ons-col>
+                                <ons-col width="5%"> :</ons-col>
+                                <ons-col><label class="value" ng-bind="tip.TollCharge"></label> </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%"> <label>Fine Charge</label> </ons-col>
+                                <ons-col width="5%"> :</ons-col>
+                                <ons-col><label class="value" ng-bind="tip.FineCharge"></label> </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item sliding-menu-ignore="true">
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <label>Post Tax</label>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col width="49%">
+                                    <input type="tel" class="text-input--transparent" ng-model="tip.PostTax" placeholder="" ng-blur="calculateCharges()" />
+                                </ons-col>
+                                <ons-col >
+                                    <ons-icon icon="ion-edit" var="additionalCharge" size="18px" style="opacity:0.5;" fixed-width="false"></ons-icon>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <label>Already Paid</label>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col width="49%">
+                                    <ons-col><label class="value" ng-bind="tip.AmountPaid"></label> </ons-col>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item>
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <label>Amount Paying</label>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col width="49%">
+                                    <input type="tel" class="text-input--transparent" ng-model="tip.AdvancePaid" placeholder="" ng-blur="calculateCharges()" />
+                                </ons-col>
+                                <ons-col>
+                                    <ons-icon icon="ion-edit" var="additionalCharge" size="18px" style="opacity:0.5;" fixed-width="false"></ons-icon>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+
+                        <ons-list-item style="background-color:#E0E0E0">
+                            <ons-row>
+                                <ons-col width="40%">
+                                    <b><label>Total Due</label></b>
+                                </ons-col>
+                                <ons-col width="5%">
+                                    :
+                                </ons-col>
+                                <ons-col>
+                                    <label class="value" ng-bind="tip.TotalDue"></label>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                    </ons-list>
+
+                </div>
+
+                <ons-template id="checkInCommonErrorList.html">
+                    <div class="error" ng-message="required">
+                        <ons-row>
+                            <ons-col width="15px">
+                                <i class="ion-information-circled"></i>
+                            </ons-col>
+                            <ons-col>
+                                Required!
+                            </ons-col>
+                        </ons-row>
+                    </div>
+                </ons-template>
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-button modifier="large--cta" style="width:100%;" ng-click="validateCheckin('buttonPress'); validateForm(checkInForm)">
+                        Save
+                    </ons-button>
+                </ons-list>
+
+
+
+            </form>
+            <ons-modal var="checkinSavedModal" style="background-color:rgba(0, 0, 0, 0.86);">
+                <ons-row>
+                    <ons-col>
+                        <div id="CheckinLoadingIcon">
+                            <ons-icon icon="ion-ios-loop" style="font-size:25px" spin="true"></ons-icon>
+                        </div>
+                        <div id="CheckedInicon" hidden>
+                            <ons-icon icon="ion-ios-checkmark-outline" style="font-size:50px"></ons-icon>
+                        </div>
+                    </ons-col>
+                </ons-row>
+                <br />
+                <label id="finalMessage"></label>
+            </ons-modal>
+
+            <ons-template id="checkOutDetailsSummary.html">
+                <ons-popover cancelable direction="down" style="width:95%">
+                    <div style="text-align: center; overflow: scroll;" class="font-small" ng-controller="CheckOutDetailsSummary">
+                        <ons-list>
+
+                            <ons-list-item>
+                                <ons-row>
+                                    <ons-col width="45%">
+                                        Location
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        :
+                                    </ons-col>
+                                    <ons-col>
+                                        <label class="value" ng-bind="tip.CheckoutLocation"></label>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item style="line-height: 30px;">
+                                <ons-row>
+                                    <ons-col width="45%">
+                                        Check Out Date
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        :
+                                    </ons-col>
+                                    <ons-col>
+                                        <label class="value" ng-bind="tip.CheckOutString"></label>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item style="line-height: 30px;">
+                                <ons-row>
+                                    <ons-col width="45%">
+                                        Check In Date
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        :
+                                    </ons-col>
+                                    <ons-col>
+                                        <label class="value" ng-bind="tip.CheckInString"></label>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item>
+                                <ons-row>
+                                    <ons-col width="45%">
+                                        Fuel Level Out
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        :
+                                    </ons-col>
+                                    <ons-col>
+                                        <label class="value" ng-bind="tip.FuelLevelOut"></label>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                            <ons-list-item>
+                                <ons-row>
+                                    <ons-col width="45%">
+                                        Odometer Out
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        :
+                                    </ons-col>
+                                    <ons-col>
+                                        <label class="value" ng-bind="tip.CheckoutOdometer"></label>
+                                    </ons-col>
+                                </ons-row>
+                            </ons-list-item>
+
+                        </ons-list>
+                    </div>
+                </ons-popover>
+            </ons-template>
+
+        </ons-page>
+    </ons-navigator>
+</body>
+

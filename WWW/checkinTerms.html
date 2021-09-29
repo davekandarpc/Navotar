@@ -1,0 +1,98 @@
+﻿<body>
+    <ons-page class="ons-page-fixed" ng-controller="checkinTermsCtrl" sliding-menu-ignore="true">
+
+        <div class="navigation-bar">
+            <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                <span class="toolbar-button--quiet navigation-bar__line-height">
+                    <i class="ion-chevron-left"></i>
+                </span>
+            </div>
+            <div class="navigation-bar__center">
+                Terms & Conditions
+            </div>
+        </div>
+
+        <ons-list modifier="inset" style="margin-top: 10px" class='TermsAndConditionList'>
+            <ons-list-header>Summary</ons-list-header>
+            <ons-list-item ng-repeat="term in terms" style="margin-top: 10px;">
+                <ons-row style="margin-top: 5px;">
+                    <ons-col width="1%"></ons-col>
+                    <ons-col width="9">
+                        <label class="checkbox checkbox--list-item" style="margin-top: -10px;">
+                            <input type="checkbox" class="term-checkbox" ng-model="checkingTerms">
+                            <div class="checkbox__checkmark checkbox--list-item__checkmark"></div>
+                        </label>
+                    </ons-col>
+                    <ons-col>
+                        <div style="margin-left: 5px;">
+                            <ons-row style="text-align: justify; font-size: 15px; line-height: 140%;">
+                                <b>{{term.Term}}</b>
+                            </ons-row>
+                            <hr class="faded-hr" ng-show="checkingTerms">
+                            <ons-row style="text-align: justify; font-size: 12px; line-height: 140%;" ng-show="checkingTerms">
+                                <i style="margin-bottom: 2px;overflow-y: scroll;height: 300px;">
+                                    {{term.Description}}
+                                </i>
+                            </ons-row>
+                        </div>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+            <ons-list-item style="line-height: 1;" ng-show="terms.length == 0">
+                <ons-row>
+                    <div style="padding: 15px 5px; margin-top: -5px;" class="center-it">
+                        <ons-row style="text-align: Center; font-size: 15px; line-height: 140%; opacity: 0.5;">
+                            Neither terms nor conditions are available
+                        </ons-row>
+                    </div>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+
+        <ons-list modifier="inset" style="margin-top: 10px; overflow:hidden" ng-show="terms.length != 0">
+            <ons-list-item style="line-height: 1;">
+                <ons-row style="height: 41px;">
+                    <ons-col width="1%"></ons-col>
+                    <ons-col width="9">
+                        <label class="checkbox checkbox--list-item" style="padding: 15px 0px; margin-top: -15px;">
+                            <input type="checkbox" id="allAcceptTerm"  ng-model="selectedAll" ng-click="acceptAllTerms()">
+                            <div class="checkbox__checkmark checkbox--list-item__checkmark"></div>
+                        </label>
+                    </ons-col>
+                    <ons-col>
+                        <div style="padding: 15px 5px; margin-top: -5px;">
+                            <ons-row style="text-align: justify; font-size: 15px; line-height: 140%;">
+                                Accept all conditions
+                            </ons-row>
+                        </div>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+
+        <br />
+
+        <div sliding-menu-ignore="true">
+            <div sliding-menu-ignore="true">
+                <div class="sigPad">
+                    <div class="sig sigWrapper" style="text-align:center;">
+                        <ons-list modifier="inset" style="margin-top: 10px">
+                            <ons-list-header>Signature</ons-list-header>
+                            <canvas id="checkinSign" class="pad center-it signPad" width="300" height="150"></canvas>
+                            <hr style="margin-top: 1px;border: 0;height: 1px;background-image: linear-gradient(to right,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+                            <ons-list-item class="center-it">
+                                <ons-button modifier="quiet" class="forgot-password" ng-click="clear()" style="font-size:13px;margin: 0; color:red">Clear Signature</ons-button>
+                            </ons-list-item>
+                        </ons-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ons-list modifier="inset" style="margin-top: 10px;">
+            <button type="submit" class="button button--large--cta" ng-click="checkin()" ng-disabled="loading">
+                CheckIn
+            </button>
+        </ons-list>
+    </ons-page>
+</body>

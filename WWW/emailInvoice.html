@@ -1,0 +1,122 @@
+<body>
+    <!-- Invoice By MS-->
+    <ons-navigator title="Navigator" var="invoiceNavigator">
+        <ons-page class="ons-page-fixed" ng-controller="invoiceEmailCntrl" style="background-color: white">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    Email Invoice
+                </div>
+            </div>
+
+            <form name="invoiceEmailForm" id="invoiceEForm" novalidate="" style="padding: 10px">
+
+                <ons-row style="padding: 10px">
+                    <ons-col>
+                        <label>From Address</label>
+                    </ons-col>
+
+                </ons-row>
+                <ons-row style="padding: 10px">
+                    <ons-col style="margin-left: 10px" width="85%">
+                        <input type="text" name="Email" value="" ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+                            required ng-class="{ 'has-errors' : invoiceEmailForm.Email.$invalid, 'no-errors' : invoiceEmailForm.Email.$valid}"
+                            placeholder="Email" class="text-input text-input--underbar newCustomer" ng-mouseup="saveCustomer('Email')">
+                        <div style="display: none;" id="Email" class="error-container" ng-show="invoiceEmailForm.Email.$error"
+                            ng-messages="invoiceEmailForm.Email.$error" ng-messages-include="emailInvoiceErr.html"></div>
+
+                    </ons-col>
+
+                </ons-row>
+                <ons-row style="padding: 10px">
+                    <ons-col>
+                        <label>To Address</label>
+                    </ons-col>
+
+                </ons-row>
+                <ons-row style="padding: 10px">
+                    <ons-col style="margin-left: 10px" width="85%">
+                        <input type="text" name="AddEmail" value="" ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+                            required ng-class="{ 'has-errors' : invoiceEmailForm.Email.$invalid, 'no-errors' : invoiceEmailForm.Email.$valid}"
+                            placeholder="Email" class="text-input--underbar newCustomer" ng-mouseup="saveCustomer('FirstName')">
+                        <div style="display: none;" id="AddEmail" class="error-container" ng-show="invoiceEmailForm.Email.$error"
+                            ng-messages="invoiceEmailForm.AddEmail.$error" ng-messages-include="emailInvoiceErr.html"></div>
+
+                    </ons-col>
+
+                </ons-row>
+                <ons-row style="padding: 10px">
+                    <ons-col>
+                        <label>CC Address</label>
+                    </ons-col>
+
+                </ons-row>
+                <ons-row style="padding: 10px">
+                    <textarea style="margin-left:10px;" rows="4" cols="35">
+
+                        </textarea>
+                </ons-row>
+
+                <ons-row style="padding: 10px">
+                    <ons-col>
+                        <label>Select Email Tamplate</label>
+                    </ons-col>
+
+                </ons-row>
+                <div>
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col>
+                            <div class="selectContainer">
+                                <select class="form-control" ng-options='item for item in searchModes' ng-model="searchMode"
+                                    ng-change="changeSearch()" style="width: 90%; height: 30px; margin-left: 5%; margin-top: 10px; text-indent: 0; text-align-last: center; border-radius: 5px;"></select>
+                            </div>
+                        </ons-col>
+                    </ons-row>
+                </div>
+
+                <ons-list modifier="inset" style="margin-top: 25px; border: none; background-color: transparent;">
+                        <ons-row class="profile-wrapper">
+                            <ons-col>
+                                <ons-button id="printBtn" modifier="large--cta" style="width:100%; background-color:red; border: 1px solid rgb(214, 33, 27); color: white;"
+                                            ng-click="#" ng-disabled="loading">
+                                   
+                                    Send Email
+                                </ons-button>
+                            </ons-col>
+                            <ons-col width="5px"></ons-col>
+                            <ons-col>
+                                <ons-button id="emailBtn" modifier="large--cta" style="width:100%; background-color:green; border: 1px solid green; color: white;"
+                                            ng-click="OnEmailSendCancle()" ng-disabled="loading">
+                                    
+                                    Cancle
+                                </ons-button>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list>
+
+
+                <!-- For Validation -->
+                <ons-template id="emailInvoiceErr.html">
+                    <div class="error" ng-message="required">
+                        <ons-row>
+                            <ons-col width="15px">
+                                <i class="ion-information-circled"></i>
+                            </ons-col>
+                            <ons-col>Required!</ons-col>
+                        </ons-row>
+                    </div>
+                    <div class="error" ng-message="pattern">
+                        <ons-row>
+                            <ons-col width="15px"><i class="ion-information-circled"></i></ons-col>
+                            <ons-col>Invalid!</ons-col>
+                        </ons-row>
+                    </div>
+                </ons-template>
+            </form>
+        </ons-page>
+    </ons-navigator>
+</body>

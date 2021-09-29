@@ -1,0 +1,42 @@
+﻿.styledBtn {
+    text-shadow: 1px 1px 4px #241f24;
+    -webkit-box-shadow: 0px 1px 1px #666666; 
+    -moz-box-shadow: 0px 1px 1px #666666; 
+    box-shadow: 0px 1px 1px #666666;
+}
+.navigation-bar {
+   
+}
+
+.ons-page-fixed{
+  
+}
+
+.ContenetScroller {
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+}
+.ContenetScroller {
+    height:100%;
+}
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+::-webkit-scrollbar:vertical {
+    width: 12px;
+}
+::-webkit-scrollbar:horizontal {
+    height: 12px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+

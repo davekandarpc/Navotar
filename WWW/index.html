@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
+<html lang="en" ng-app="app" ng-csp>
+<head>
+    <title>Navotar</title>
+
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * gap://ready file: blob: ; script-src 'unsafe-eval' 'unsafe-inline' *; style-src * 'unsafe-inline'; img-src data: *">
+    <!-- meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">         -->
+<!--     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com http://app.navotar.com 'unsafe-eval'; style-src 'self' unsafe-inline'; media-src *; img-src data: *">-->
+    <!-- JS dependencies (order matters!) -->
+    <script src="scripts/platformOverrides.js"></script>
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+    <script src="lib/scripts/jquery-2.1.4.min.js"></script>
+
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+
+    <link id="themeScript" rel="stylesheet" href="lib/onsen/css/onsen-css-components-blue-basic-theme.css" />
+    <link href="css/angular-notify.css" rel="stylesheet" />
+
+    <link href="css/App/index.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+    <link href="css/error.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="css/licenseScan.css">
+    <link rel="stylesheet" type="text/css" href="css/nsProgress.css">
+
+    <!-- CSP support mode (required for Windows Universal apps) -->
+    <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+    <script src="lib/angular/angular-messages.min.js"></script>
+    <script src="lib/angular/angular-ui-router.js"></script>
+    <script src="lib/angular/angular-translate.js"></script>
+    <!--<script src="lib/angular/angular-animate.js"></script>-->
+
+    <script>
+        window.onerror = function (message, url, lineNumber) {
+            var msg = "Error: " + message + " in " + url + " at line " + lineNumber;
+            console.log(msg);
+            ons.notification.alert({ message: msg, title: 'error', animation: 'slide', buttonLabel: 'ok' });
+        }
+    </script>
+
+    <script src="lib/scripts/jquery.signaturepad.min.js"></script>
+    <script src="lib/scripts/bezier.js"></script>
+    <script src="lib/scripts/json2.min.js"></script>
+    <!-- below code  date.js comment due aws clould not working-->
+    <!-- <script src="lib/scripts/date.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js"></script>
+    <script src="lib/scripts/moment.js"></script>
+    <script src="lib/scripts/nsProgress.js"></script>
+    <script src="lib/angular/angular-notify.js"></script>
+
+    <script src="lib/chart/chart.js"></script>
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
+    <!--Google Print-->
+    <script src="lib/scripts/cpgadget.js"></script>
+
+    <!-- --------------- App init --------------- -->
+    <script>
+        var myApp = angular.module('app', ['onsen', 'ui.router', 'pascalprecht.translate', 'cgNotify']);
+        var vehicleviewimages = [["frontView", ""], ["rearView", ""], ["leftView", ""], ["rightView", ""]];
+        var defaultTransition = window.localStorage.getItem("animation") == null ? 'fade' : window.localStorage.getItem("animation");
+    </script>
+    <script src="scripts/settings.js"></script>
+    <script src="scripts/common.js"></script>
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/newCustomer.js"></script>
+    <script src="scripts/customerImages.js"></script>
+    <script src="scripts/exCustomer.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/signUp.js"></script>
+    <script src="scripts/home.js"></script>
+    <script src="scripts/checkIn.js"></script>
+    <script src="scripts/checkOut.js"></script>
+    <script src="scripts/reservationCheckOut.js"></script>
+    <script src="scripts/reservationRates.js"></script>
+    <script src="scripts/reservationCharges.js"></script>
+    <script src="scripts/agreementCharges.js"></script>
+    <script src="scripts/viewAgreement.js"></script>
+    <script src="scripts/createAgreement.js"></script>
+    <script src="scripts/checkOutCharges.js"></script>
+    <script src="scripts/addDamage.js"></script>
+    <script src="scripts/checkDamage.js"></script>
+    <script src="scripts/agreementRates.js"></script>
+    <script src="scripts/vehicleImages.js"></script>
+    <script src="scripts/addvehicalVideo.js"></script>
+    <script src="scripts/vehicleCustomImages.js"></script>
+    <script src="scripts/viewReservation.js"></script>
+    <script src="scripts/vehicleStatus.js"></script>
+    <script src="scripts/checkinTerms.js"></script>
+    <script src="scripts/customTerms.js"></script>
+    <script src="scripts/licenseScan.js"></script>
+    <script src="scripts/invoice.js"></script>
+    <script src="scripts/addInvoice.js"></script>
+    <script src="scripts/searchCustomer.js"></script>
+    <script src="scripts/delership.js"></script>
+    <script src="scripts/viewInvoice.js"></script>
+    <script src="scripts/emailInvoice.js"></script>
+    
+</head>
+
+<body>
+    <!-- Cordova reference -->
+    <script src="cordova.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+    <!--miscellaneous-->
+
+    <ons-modal var="OnsNotification" style="background-color:rgba(0, 0, 0, 0.86);">
+        <div id="LoadingLoopDiv">
+            <ons-icon icon="ion-ios-loop" style="font-size: 25px" spin="true"></ons-icon>
+            <br><br>
+        </div>
+        <div id="CheckMarkDiv" hidden>
+            <ons-icon icon="ion-ios-checkmark-outline" style="font-size:50px"></ons-icon>
+        </div>
+        <label id="NotificationMessage"></label>
+        <br/>
+        <i><label id="SubNotificationMessage" style="font-size: small"></label></i>
+        <br />
+    </ons-modal>
+
+    <ons-sliding-menu menu-page="menu.html" main-page="login.html" side="left" var="menu" type="reveal" max-slide-distance="90%" swipeable></ons-sliding-menu>
+
+</body>
+</html>

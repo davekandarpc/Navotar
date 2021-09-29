@@ -1,0 +1,209 @@
+<body><!-- Invoice Search by MS -->
+    <ons-navigator title="Navigator" var="searchCustomerNavigator">
+        <ons-page class="ons-page-fixed" ng-controller="invoicesearchCustomerCntrl">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" ng-click="backToADDInvoice();">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    Search Customer
+                </div>
+                <div class="navigation-bar__right" >
+                    <div ng-click="SearchCustomer()" class="navigation-bar__center">
+                        <Text style="color: red">search</Text>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formarea font-small" >
+            
+                <ons-row style="padding-top: 20px;">
+                    <ons-col width="40%">
+                        <label class="labelFix">
+                            First Name
+                        </label>
+                    </ons-col>
+                    <ons-col width="5">
+                        <label class="labelFix">
+                            :
+                        </label>
+                    </ons-col>
+                    <ons-col>
+                        <!-- <label class="value" ng-bind="tip.Firstname"></label> -->
+                        <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                        <input class="text-input" value="" ng-model="info.Firstname" style="width:100%" >
+                    </ons-col>
+                </ons-row>
+                <ons-row style="padding-top: 20px;">
+                    <ons-col width="40%">
+                        <label class="labelFix">
+                            Last Name
+                        </label>
+                    </ons-col>
+                    <ons-col width="5">
+                        <label class="labelFix">
+                            :
+                        </label>
+                    </ons-col>
+                    <ons-col>
+                        <!-- <label class="value" ng-bind="tip.Firstname"></label> -->
+                        <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                        <input class="text-input" value="" ng-model="info.Lastname" style="width:100%" >
+                    </ons-col>
+                </ons-row>
+                <ons-row style="padding-top: 20px;">
+                    <ons-col width="40%">
+                        <label class="labelFix">
+                            Lisence No
+                        </label>
+                    </ons-col>
+                    <ons-col width="5">
+                        <label class="labelFix">
+                            :
+                        </label>
+                    </ons-col>
+                    <ons-col>
+                        <!-- <label class="value" ng-bind="tip.Firstname"></label> -->
+                        <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                        <input class="text-input" value="" ng-model="info.LicenseNumber" style="width:100%" >
+                    </ons-col>
+                </ons-row>
+                <ons-row style="padding-top: 20px;">
+                    <ons-col width="40%">
+                        <label class="labelFix">
+                            Company Name
+                        </label>
+                    </ons-col>
+                    <ons-col width="5">
+                        <label class="labelFix">
+                            :
+                        </label>
+                    </ons-col>
+                    <ons-col>
+                        <!-- <label class="value" ng-bind="tip.Firstname"></label> -->
+                        <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                        <input class="text-input" value="" ng-model="info.CompanyName" style="width:100%" >
+                    </ons-col>
+                </ons-row>
+                <ons-row style="padding-top: 20px;">
+                    <ons-col width="40%">
+                        <label class="labelFix">
+                            Phone Number
+                        </label>
+                    </ons-col>
+                    <ons-col width="5">
+                        <label class="labelFix">
+                            :
+                        </label>
+                    </ons-col>
+                    <ons-col>
+                        <!-- <label class="value" ng-bind="tip.Firstname"></label> -->
+                        <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                        <input class="text-input" value="" ng-model="info.Phone" style="width:100%" >
+                    </ons-col>
+                </ons-row>
+                <ons-row style="padding-top: 30px;">
+                    <ons-col width="41%" style="padding-left:9px;">
+                        <label> Customer Type </label>
+                    </ons-col>
+                    <ons-col width="5">
+                        <label> : </label>
+                    </ons-col>
+                    <ons-col>
+                        <select class="form-control" ng-options='item as item.TypeName for item in customerTypes' ng-model="info.CustomerType"
+                            style="width: 100%; height: 30px; text-indent: 0; text-align-last: center;border-radius: 5px;" value=""></select>
+                    </ons-col>
+                </ons-row>
+            
+            
+            
+                <div sliding-menu-ignore="true"  class="ng-anim" id="searchContent2"  style="overflow: scroll;">
+                <ons-list  >
+                    <ons-list-item style="border: 1px groove gray;margin: 5px" modifier="tappable" ng-repeat="item in SearchCustomerList"
+                    >
+                        <ons-row>
+            
+                            <ons-col class="ellipsis-label" width="20%">
+                                <label style="color: rgb(62, 62, 235);font-size: 12px">First Name</label>
+                            </ons-col>
+                            <ons-col width="2">
+                                :
+                            </ons-col>
+                            <ons-col class="ellipsis-label" width="25%">
+                                <label style="font-size: 12px">{{item.firstName}}</label>
+                            </ons-col>
+                            <ons-col class="ellipsis-label" width='20%'>
+                                <label style="color: rgb(62, 62, 235);font-size: 12px">Last Name</label>
+                            </ons-col>
+                            <ons-col width="2">
+                                :
+                            </ons-col>
+                            <ons-col class="ellipsis-label">
+                                <label style="font-size: 12px">{{item.lastName}}</label>
+                            </ons-col>
+            
+            
+                        </ons-row>
+                        <ons-row>
+                            <ons-col class="ellipsis-label" width="20%">
+                                <label style="color: rgb(62, 62, 235);font-size:12px">Lisence No</label>
+                            </ons-col>
+                            <ons-col width="2">
+                                :
+                            </ons-col>
+                            <ons-col class="ellipsis-label" width="20%">
+                                <label style="font-size: 12px">{{item.licenseNumber}}</label>
+                            </ons-col>
+                            <ons-col class="ellipsis-label" width="28%">
+                                <label style="color: rgb(62, 62, 235);font-size:12px">Company Name</label>
+                            </ons-col>
+                            <ons-col width="2">
+                                :
+                            </ons-col>
+                            <ons-col class="ellipsis-label" width="28%">
+                                <label style="font-size: 12px">{{item.companyName}}</label>
+                            </ons-col>
+                        </ons-row>
+                        <ons-row>
+                            <ons-col class="ellipsis-label" width="26%">
+                                <label style="color: rgb(7, 7, 255);font-size:12px">Phone Number</label>
+                            </ons-col>
+                            <ons-col width="2">
+                                :
+                            </ons-col>
+            
+                            <ons-col class="ellipsis-label" width="22%">
+                                <label style="font-size: 12px">{{item.hPhone}}</label>
+                            </ons-col>
+                            <ons-col class="ellipsis-label" width="29%">
+                                <label style="color: rgb(62, 62, 235);font-size:12px">Customer Type</label>
+                            </ons-col>
+                            <ons-col width="2">
+                                :
+                            </ons-col>
+                            <ons-col class="ellipsis-label" width="17%">
+                                <label style="font-size:12px">{{item.customerType}}</label>
+                            </ons-col>
+                        </ons-row>
+                        <ons-row>
+                            <ons-col width='50%'>
+            
+                            </ons-col>
+                            <ons-col>
+                                <ons-button style="background-color: green;width: '100%';margin-bottom: 5px" ng-click="selectCustomer(item.customerId)">
+                                    Select Customer
+                                </ons-button>
+                            </ons-col>
+            
+                        </ons-row>
+            
+                    </ons-list-item>
+                </ons-list>
+                </div>
+            </div>
+            
+        </ons-page>
+    </ons-navigator>
+</body>

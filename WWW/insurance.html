@@ -1,0 +1,138 @@
+<style>
+    #newInsuranceForm{
+        margin: 9px;
+    }
+    .labelFix{
+        padding-left:0px; 
+    }
+    .row{
+        margin-top:15px
+    }
+</style>
+
+<body>
+    <ons-navigator animation="slide" var="newInsurance">
+        <ons-page ng-controller="newInsuranceCtrl" class="ons-page-fixed">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    Add Insurance
+                </div>
+            </div>
+
+            <form name="newInsuranceForm" id="newInsuranceForm" novalidate="" sliding-menu-ignore="true">
+                <ons-row>
+                    <ons-col width="40%">
+                        <label class="labelFix">Insurance Company</label>
+                    </ons-col>
+                    <ons-col width="5">
+                        <label class="labelFix" style="padding-top:11px">:</label>
+                    </ons-col>
+                    <ons-col>
+                        <select class="form-control" id="CompanyName" ng-options='item as item.Value for item in insuranceInfo.companies'
+                            ng-model="info.CompanyName" style="width: 100%; height: 30px; text-indent: 0; text-align-last: center;border-radius: 5px; margin-top: 7px;"></select>
+                    </ons-col>
+                </ons-row>
+                <ons-row>
+                    <ons-col width="40%">
+                        <label class="labelFix">
+                            Expiry Date
+                        </label>
+                    </ons-col>
+                    <ons-col width="5">
+                        <label class="labelFix">
+                            :
+                        </label>
+                    </ons-col>
+                    <ons-col>
+                        <input type="date" name="expiryDate" value="" ng-model="insuranceInfo.ExpiryDate" ng-class="{ 'has-errors' : newInsuranceForm.expiryDate.$invalid, 'no-errors' : newInsurancerForm.expiryDate.$valid}"
+                            style="width:100%" class="text-input text-input--underbar" ng-mouseup="saveInsurance('expiryDate')">
+                        <div style="display: none;" id="expiryDate" class="error-container" ng-show="newInsuranceForm.expiryDate.$error"
+                            ng-messages="newInsuranceForm.expiryDate.$error" ng-messages-include="newInsuranceCommonErrorList.html"></div>
+                    </ons-col>
+                </ons-row>
+               <!-- 
+                <ons-row>
+                    <ons-col>
+                        <input type="text" name="ClaimName" value="" ng-model="insuranceInfo.ClaimName" placeholder="Claim Name"
+                            class="text-input text-input--underbar">
+                    </ons-col>
+                </ons-row>
+                 <ons-row>
+                    <ons-col>
+                        <input type="text" name="DOL" value="" ng-model="insuranceInfo.DOL" placeholder="DOL" class="text-input text-input--underbar">
+                    </ons-col>
+                    <ons-col width="2%"></ons-col>
+                    <ons-col>
+                        <input type="number" name="PerDayAllowance" value="" ng-model="insuranceInfo.PerDayAllowance"
+                            placeholder="Per Day Allowance" class="text-input text-input--underbar">
+                    </ons-col>
+                </ons-row>
+
+                <ons-row>
+                    <ons-col>
+                        <input type="number" name="NumberofDaysAllowed" value="" ng-model="insuranceInfo.NumberofDaysAllowed"
+                            placeholder="Number of Days Allowed" class="text-input text-input--underbar">
+                    </ons-col>
+                </ons-row>
+
+
+                <ons-row>
+                    <ons-col>
+                        <input type="number" name="MaximumAllowanceforRental" value="" ng-model="insuranceInfo.MaximumAllowanceforRental"
+                            placeholder="Maximum Allowance for Rental" class="text-input text-input--underbar">
+                    </ons-col>
+                </ons-row> -->
+
+                <!-- <ons-row>
+                    <ons-col>
+                        <input type="text" name="AdjusterName" value="" ng-model="insuranceInfo.AdjusterName"
+                            placeholder="Adjuster Name" class="text-input text-input--underbar">
+                    </ons-col>
+                    <ons-col width="2%"></ons-col>
+                    <ons-col>
+                        <input type="number" name="AdjusterPhone" value="" ng-model="insuranceInfo.AdjusterPhone"
+                            placeholder="Adjuster Phone" class="text-input text-input--underbar">
+                    </ons-col>
+                </ons-row> -->
+
+                <ons-row>
+                    <ons-col>
+                        <input type="number" name="PolicyNo" value="" ng-model="insuranceInfo.PolicyNo" placeholder="Policy No"
+                            class="text-input text-input--underbar" style="width:100%;">
+                    </ons-col>
+                    <ons-col width="2%"></ons-col>
+                    <ons-col width=50%>
+                        <input type="number" name="ClaimNo" value="" ng-model="insuranceInfo.ClaimNo" placeholder="Claim No"
+                            class="text-input text-input--underbar" style="width:100%;">
+                    </ons-col>
+                </ons-row>
+
+               <!--  <ons-row>
+                    <ons-col>
+                        <input type="text" name="VehicleInformation" value="" ng-model="insuranceInfo.VehicleInformation"
+                            placeholder="Vehicle Information" class="text-input text-input--underbar" style="width:100%;">
+                    </ons-col>
+                </ons-row> -->
+
+                <!-- <ons-row>
+                    <ons-col>
+                        <input type="text" name="AF_NAF" value="" ng-model="insuranceInfo.AF_NAF" placeholder="AF/NAF"
+                            class="text-input text-input--underbar" style="width:100%;">
+                    </ons-col>
+                </ons-row> -->
+
+                <ons-button modifier="large--cta" ng-click="SaveInsurance('buttonPress'); validateForm(newInsuranceForm)"
+                    style="margin-top: 10px;">
+                    Save Insurance
+                </ons-button>
+
+            </form>
+        </ons-page>
+    </ons-navigator>
+</body>

@@ -1,0 +1,126 @@
+<body>
+    <ons-navigator title="Navigator" var="invoiceNavigator">
+        <ons-page class="ons-page-fixed">
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    Invoice
+                </div>
+            </div>
+            <div class="formarea font-small" ng-controller="invoiceDelerShipCtrl">
+                    <ons-row style="padding-top: 20px;">
+                            <ons-col width="40%">
+                                <label class="labelFix">
+                                    Billing Name (To)
+                                </label>
+                            </ons-col>
+                            <ons-col width="5">
+                                <label class="labelFix">
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <!-- <label class="value" ng-bind="tip.Firstname"></label> -->
+                                <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                                <input class="text-input" value="" ng-model="fullName" style="width:100%">
+                            </ons-col>
+                        </ons-row>
+                        <ons-row style="padding-top: 20px;">
+                            <ons-col width="40%">
+                                <label class="labelFix">
+                                    Billing Phone (To)
+                                </label>
+                            </ons-col>
+                            <ons-col width="5">
+                                <label class="labelFix">
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <!-- <label class="value" ng-bind="tip.Phone"></label> -->
+                                <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                                <input class="text-input" value="" ng-model="tip.Phone" style="width:100%">
+                            </ons-col>
+                        </ons-row>
+                        <ons-row style="padding-top: 20px;">
+                            <ons-col width="40%">
+                                <label class="labelFix">
+                                    Billing Address (To)
+                                </label>
+                            </ons-col>
+                            <ons-col width="5">
+                                <label class="labelFix">
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <!--  <label class="value" ng-bind="tip.Address"></label> -->
+                                <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                                <input class="text-input" value="" ng-model="tip.Address" style="width:100%">
+                            </ons-col>
+                        </ons-row>
+                        <ons-row style="padding-top: 20px;">
+                            <ons-col width="40%">
+                                <label class="labelFix">
+                                    Invoice Date
+                                </label>
+                            </ons-col>
+                            <ons-col width="5">
+                                <label class="labelFix">
+                                    :
+                                </label>
+                            </ons-col>
+    
+                            <ons-col>
+                                <input type="date" name="dateOfBirth" ng-model="Invoicestr" style="width:100%" class="text-input text-input--underbar" >
+                            </ons-col>
+                        </ons-row>
+                        <ons-row style="padding-top: 20px;">
+                            <ons-col width="40%">
+                                <label class="labelFix">
+                                    Invoice (From)
+                                </label>
+                            </ons-col>
+                            <ons-col width="5">
+                                <label class="labelFix">
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <!--  <label class="value" ng-bind="tip.Address"></label> -->
+                                <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                                <input class="text-input" value="" ng-model="invoicefrm" style="width:100%">
+                            </ons-col>
+                        </ons-row>
+                        <ons-row style="padding-top: 20px;">
+                            <ons-col width="40%">
+                                <label class="labelFix">
+                                    Invoice Address (From)
+                                </label>
+                            </ons-col>
+                            <ons-col width="5">
+                                <label class="labelFix">
+                                    :
+                                </label>
+                            </ons-col>
+                            <ons-col>
+                                <!--  <label class="value" ng-bind="tip.Address"></label> -->
+                                <!-- <input class="value"ng-bind="tip.Firstname"> -->
+                                <input class="text-input" value="" ng-model="invoiceAddfrm" style="width:100%">
+                            </ons-col>
+    
+                        </ons-row>
+                        <button type="submit" id="checkinConfirm" class="button button--large--cta" style="background-color:green;width:100%;margin-top: 20px"
+                            ng-click="invoiceDelership()" ng-disabled="loading">
+                            Create Invoice
+                        </button>
+            </div>
+
+        </ons-page>
+    </ons-navigator>
+</body>
+

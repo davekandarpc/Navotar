@@ -1,0 +1,128 @@
+﻿<head>
+    <link href="css/App/damage.css" rel="stylesheet" />
+</head>
+
+<body>
+    <ons-navigator title="Navigator" var="addDamageNavigator">
+
+        <ons-page class="ons-page-fixed" ng-controller="AddDamageCtrl">
+            <div class="navigation-bar">
+
+                <div class="navigation-bar__left"></div>
+                <div class="navigation-bar__center">
+                    Add Damage
+                </div>
+                <div class="navigation-bar__right" ng-controller="addDamageColorPopover">
+                    <ons-icon class="button button--quiet" icon="ion-ios-information-outline" size="20px" fixed-width="false" ng-click="popover.show($event)"></ons-icon>
+                </div>
+                <ons-template id="colorSetPopover.html">
+                    <ons-popover cancelable direction="down">
+                        <div style="text-align: center;">
+                            <ons-list>
+                                <ons-list-item>
+                                    <ons-row>
+                                        <ons-col width="60%">Dents</ons-col>
+                                        <ons-col width="5">:</ons-col>
+                                        <ons-col><div style="border-radius: 67%; background: #FFFF00;padding: 10px; width: 2px; margin: 10px 20px; height: 1px;"></div></ons-col>
+                                    </ons-row>
+                                </ons-list-item>
+                                <ons-list-item>
+                                    <ons-row>
+                                        <ons-col width="60%">Scrape Scratch</ons-col>
+                                        <ons-col width="5">:</ons-col>
+                                        <ons-col><div style="border-radius: 67%; background: #FF9900;padding: 10px; width: 2px; margin: 10px 20px; height: 1px;"></div></ons-col>
+                                    </ons-row>
+                                </ons-list-item>
+                                <ons-list-item>
+                                    <ons-row>
+                                        <ons-col width="60%">Chip Crack</ons-col>
+                                        <ons-col width="5">:</ons-col>
+                                        <ons-col><div style="border-radius: 67%; background: #FF4719;padding: 10px; width: 2px; margin: 10px 20px; height: 1px;"></div></ons-col>
+                                    </ons-row>
+                                </ons-list-item>
+                            </ons-list>
+                        </div>
+                    </ons-popover>
+                </ons-template>
+            </div>
+
+            <div ng-controller="addDamageCanvas">
+
+                <select id="type" ng-model="damageType">
+                    <option label="SELECT TYPE"></option>
+                    <option value="dent">Dent</option>
+                    <option value="crack">Scrape Scratch</option>
+                    <option value="missing">Chip Crack</option>
+                </select>
+
+                <div class="center-content container" sliding-menu-ignore="true" style="text-align:center">
+                    <img src="images/car.png" id="imgVehicle" class="same-width box" style="position: absolute; left: 2px; top: 2px;" />
+                    <canvas id="damagesCanvas" width="431" height="290" class="box" style="position: absolute; margin: 0 0 0 12px; top: 12px; left: 0;"></canvas>
+                </div>
+               
+                <ons-row>
+                    <ons-col><button class="button button--large--quiet" ng-click="undo()" style="font-size:13px;color:#336906">Undo Changes</button></ons-col>
+                    <ons-col width="5%"></ons-col>
+                    <ons-col><button class="button button--large--quiet" style="font-size:13px;color:red" ng-click="clear()">Clear Damages</button></ons-col>
+                </ons-row>
+              
+            </div>
+
+           <!--  <ons-list modifier="inset" style="margin-top: 10px;">
+                <ons-list-item>
+                    <ons-row>
+                        <label class="button button--large--quiet" style="padding: 4px 0px;" ng-click="showVehicleImages()">Vehicle Images</label>
+                    </ons-row>
+                </ons-list-item>
+                <ons-list-item>
+                    <ons-row>
+                        <label class="button button--large--quiet" style="padding: 4px 0px;" ng-click="showExtraImages()">Extra Vehicle Images</label>
+                    </ons-row>
+                </ons-list-item>
+                <ons-list-item>
+                    <ons-row>
+                        <label class="button button--large--quiet" style="padding: 4px 0px;" ng-click="AddVideos()">Add Videos</label>
+                    </ons-row>
+                </ons-list-item>
+               
+            </ons-list> -->
+
+            <ons-row style="padding-left:10px ; padding-right:10px ">
+                <button class="button button--large--cta" style="width: 100%;margin-top: 10px"
+                    ng-click="showVehicleImages()">Vehicle Images</button>
+                <button class="button button--large--cta" style="width: 100%;margin-top: 10px"
+                    ng-click="showExtraImages()">Extra Vehicle Images</button>
+                <button ng-disabled="AddVideosDisable" class="button button--large--cta" style="width: 100%;margin-top: 10px"
+                    ng-click="AddVideos()">Add Vehicle Video</button>
+            </ons-row>
+
+            <!-- <br> -->
+            
+            <div sliding-menu-ignore="true" ng-controller="addDamageSignature">
+                <div sliding-menu-ignore="true">
+                    <div class="sigPad">
+                        <div class="sig sigWrapper" style="text-align:center;">
+                            <ons-list modifier="inset" style="margin-top: 10px">
+                                <ons-list-header>Signature</ons-list-header>
+                                <canvas id="addDamageSignatureCanvas" class="pad center-it signPad" ng-model="sampled" width="300" height="150"></canvas>
+                                <hr style="margin-top: 1px;border: 0;height: 1px;background-image: linear-gradient(to right,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+                                <ons-list-item class="center-it">
+                                    <ons-button modifier="quiet" class="forgot-password" ng-click="clear()" style="font-size:13px;margin: 0; color:red">Clear Signature</ons-button>
+                                </ons-list-item>
+                            </ons-list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <ons-list modifier="inset" style="margin-top: 10px;">
+                <button type="submit" id="addDamageConfirm" disabled class="button button--large--cta" ng-controller="addDamageSubmit" ng-click="submit()">
+                    Continue
+                </button>
+            </ons-list>
+
+        </ons-page>
+    </ons-navigator>
+</body>
+

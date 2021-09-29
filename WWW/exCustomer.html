@@ -1,0 +1,298 @@
+﻿<body>
+    <ons-navigator animation="slide" var="exCustomerNavigator">
+
+        <ons-page class="font-small ons-page-fixed" ng-controller="exCustomerDetails">
+            <div class="navigation-bar">
+
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition })">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    Customer Details
+                </div>
+            </div>
+
+            <form method="get" >
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>First Name</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value">{{customer.FirstName}}</label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Last Name</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value">{{customer.LastName}}</label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Phone number</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value">{{customer.Phone}}</label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Date of Birth</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value">{{customer.DateOfBirth}}</label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Address</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value">{{customer.Address}}</label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>City</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value">{{customer.City}}</label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>State</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value">{{customer.StateName}}</label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Zip Code</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value">{{customer.ZipCode}}</label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">Country</ons-col>
+                            <ons-col width="3%">:</ons-col>
+                            <ons-col><label class="value">{{customer.CountryName}}</label></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%"><label>Driver's License</label></ons-col>
+                            <ons-col width="3%">:</ons-col>
+                            <ons-col><label class="value">{{customer.LicenseNumber}}</label></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%"><label>Issued Date</label></ons-col>
+                            <ons-col width="3%">:</ons-col>
+                            <ons-col><label class="value">{{customer.LicenseIssueDate}}</label></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%"><label>Expired Date</label></ons-col>
+                            <ons-col width="3%">:</ons-col>
+                            <ons-col><label class="value">{{customer.LicenseExpiryDate}}</label></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-header style="text-transform: none;" ng-show="false">Credit Card Info</ons-list-header>
+                    <ons-list-item ng-show="false">
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Card Type</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value" ng-bind="customer.CreditCardType "></label>
+                            </ons-col>
+                        </ons-row>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Card No</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value" ng-bind="customer.CreditCardNo"></label>
+                            </ons-col>
+                        </ons-row>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Expiry Date</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value" ng-bind="customer.CreditCardExpiryDate"></label>
+                            </ons-col>
+                        </ons-row>
+
+                    </ons-list-item>
+
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px;" ng-show="customer.Active">
+                    <ons-button modifier="large--cta" ng-click="Navigate()">
+                        Continue
+                    </ons-button>
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px;" ng-show="!customer.Active">
+                    <ons-button modifier="large--cta" disabled="true">
+                        Customer is deactivated
+                    </ons-button>
+                </ons-list>
+
+
+            </form>
+
+            
+            <ons-modal var="invoiceSchedularModel" direction="up">
+               
+                <form style="margin:20px;background-color: white;padding-bottom: 30px;" class="invoiceSchedularForm">
+                    <div style="background-color:#428bca;text-align: center;padding: 20px"> Invoice Scheduler Period 
+                    </div> 
+                    <ons-list>
+                        <ons-list-header>Select Peroid</ons-list-header>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <input type="radio" input-id="radio-1" name ="period" value="1" checked>
+                            </label>
+                            <label for="radio-1" class="center">
+                                Daily
+                            </label>
+                        </ons-list-item>
+
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <input type="radio"  input-id="radio-2" name ="period" value="2">
+                            </label>
+                            <label for="radio-2" class="center">
+                                Weekly
+                            </label>
+                        </ons-list-item>
+
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <input type="radio"  input-id="radio-3" name ="period" value="3">
+                            </label>
+                            <label for="radio-3" class="center">
+                                Monthly
+                            </label>
+                        </ons-list-item>
+                    </ons-list>
+
+                    <ons-list class="days">
+                        <ons-list-header>Select Day</ons-list-header>
+
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <select name="days" style="padding: 10px">
+                                    <option value="1">Sunday</option>
+                                    <option value="2">Monday</option>
+                                    <option value="3">Tuesday</option>
+                                    <option value="4">Wednesday</option>
+                                    <option value="5">Thursday</option>
+                                    <option value="6">Friday</option>
+                                    <option value="7">Saturday</option>
+                                <select>
+                            </label>
+                        </ons-list-item>
+                    </ons-list>
+
+
+                    <ons-list class="LastUpdateDetails">
+                        <ons-list-header>Last Update Details</ons-list-header>
+                        <ons-list-item tappable>
+                           
+                                <label class="left">
+                                    <b> By : </b>
+                                </label>
+                                <label class="center UpdateBy"></label>
+                         
+                        </ons-list-item>
+                        <ons-list-item tappable>
+                            
+                                <label class="left">
+                                    <b> Date : </b>
+                                </label>
+                                <label class="center UpdateDate"></label>
+                
+                        </ons-list-item>  
+                    </ons-list>
+
+                    <div class="saveBtn" style="text-align: center;margin-top: 30px">
+                        <ons-button  ng-click="toSaveInvoiceSchedularData()">
+                            SAVE
+                        </ons-button>   
+                    </div>
+
+                </form>   
+            
+            </ons-modal>
+
+
+        </ons-page>
+
+    </ons-navigator>
+</body>
+
+

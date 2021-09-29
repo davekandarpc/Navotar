@@ -1,0 +1,342 @@
+﻿<!-- <link href="css/radio-button.css" rel="stylesheet" />
+ -->
+ <style>
+
+    .addNoteHeading{
+        font-size: 10px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .addNoteContent{
+        font-size: 10px;
+        text-align: center;
+        line-height: 1.4;
+    }
+    .addNoteContentText{
+        font-size: 10px;
+        text-align: justify;
+        line-height: 1.4;
+    }
+   
+ </style>
+<body>
+    <ons-navigator title="Navigator" var="viewReservationNavigator">
+
+        <ons-page class="ons-page-fixed" ng-controller="viewReservationCtrl">
+            <a id="top"></a>
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" ng-click="navigateBack()">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-ios-home-outline" style="font-size: 22px;"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    View Reservation
+                </div>
+            </div>
+            <form method="get" class="font-small">
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label> Reservation No </label>
+                            </ons-col>
+                            <ons-col width="3%"> : </ons-col>
+                            <ons-col>
+                                <label class="value" ng-bind="info.ReservationNumber"></label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-header>CUSTOMER DETAILS</ons-list-header>
+                    <ons-list-item ng-repeat="item in info.customerInfo">
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>{{item.text}}</label>
+                            </ons-col>
+                            <ons-col width="3%"> : </ons-col>
+                            <ons-col>
+                                <label ng-if="!item.simplecase" class="value" ng-bind="item.value | titleCase"></label>
+                                <label ng-if="item.simplecase" class="value" ng-bind="item.value"></label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-header>LICENSE DETAILS</ons-list-header>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Number</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value" ng-bind="LicenseInfo.LicenseNumber"></label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Issue Date</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value" ng-bind="LicenseInfo.LicenseIssueDateString"></label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item>
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>Expiry Date</label>
+                            </ons-col>
+                            <ons-col width="3%">
+                                :
+                            </ons-col>
+                            <ons-col>
+                                <label class="value" ng-bind="LicenseInfo.LicenseExpiryDateString"></label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+
+                <ons-list modifier="inset" style="margin-top: 10px" sliding-menu-ignore="true">
+                    <ons-list-header style="text-transform: none;">
+                        NOTE HISTORY
+                        <span style="float:right;margin-right:10px" ng-click="AddNote()">
+                            <ons-icon icon="ion-plus" size="15px" fixed-width="false" style="color: #1f1f21;vertical-align: initial;"></ons-icon>
+                            ADD NOTE
+                        </span>
+                    </ons-list-header>
+                    <ons-list-item ng-show="!(notes.length>0)">
+                        <ons-row>
+                            <ons-col>
+                                <label>No Record Found.</label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item ng-show="notes.length>0" style="line-height: 25px;min-height: 25px">
+                        <ons-row>
+                            <ons-col class="addNoteHeading" width="45%">Note</ons-col>
+                            <ons-col class="addNoteHeading" width="20%">Created Date</ons-col>
+                            <ons-col class="addNoteHeading" width="20%">Create By</ons-col>
+                            <ons-col class="addNoteHeading" width="15%">Actions</ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <div style="overflow-y: scroll;max-height: 200px">
+                        <ons-list-item style="line-height: unset;min-height: auto" ng-repeat="data in notes">
+                            <ons-row style="margin:7px 0px;align-items: center;">
+                                <ons-col class="addNoteContentText" width="45%" ng-bind="data.Note"></ons-col>
+                                <ons-col class="addNoteContent" width="20%" ng-bind="data.CreatedDate"></ons-col>
+                                <ons-col class="addNoteContent" width="20%" ng-bind="data.UserName"></ons-col>
+                                <ons-col class="addNoteContent" width="15%">
+                                    <ons-icon icon="ion-edit" size="15px" fixed-width="false" style="color: #1f1f21;" ng-click="editNote($index)"></ons-icon>
+                                    <ons-icon icon="ion-trash-b" size="15px" fixed-width="false" style="color: #1f1f21;margin-left:12px"
+                                        ng-click="confirmDeleteNote($index)"></ons-icon>
+                                </ons-col>
+                            </ons-row>
+                        </ons-list-item>
+                    </div>
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px">
+                    <ons-list-header>RESERVATION DETAILS</ons-list-header>
+
+                    <ons-list-item ng-repeat="item in info.reservationInfo">
+                        <ons-row>
+                            <ons-col width="40%">
+                                <label>{{item.text}}</label>
+                            </ons-col>
+                            <ons-col width="3%"> : </ons-col>
+                            <ons-col>
+                                <label class="value" ng-bind="item.value"></label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                </ons-list>
+
+                <ons-list modifier="inset" style="margin-top: 10px" ng-show="false">
+                    <ons-list-header>PAYMENT DETAILS</ons-list-header>
+                    <ons-list-item ng-repeat="item in info.paymentInfo">
+                        <ons-row>
+                            <ons-col width="60%">
+                                <label> {{item.text}} </label>
+                            </ons-col>
+                            <ons-col width="3%"> : </ons-col>
+                            <ons-col>
+                                <label class="value" ng-bind="item.value"></label>
+                            </ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                </ons-list>
+
+                <ons-row style="padding: 10px;" ng-show="info.Status=='Open' || info.Status=='CheckOut' || info.Status=='Quote'">
+                    <ons-col>
+                        <ons-button id="printBtn" modifier="outline" style="width: 100%; text-align: center; background-color: rgba(0,128,0,0.5); border: 1px solid green; color: black;" 
+                                    ng-click="PrintMenu()" ng-disabled="pageLoading">
+                            <ons-icon icon="ion-printer" size="28px" fixed-width="false" style="color:green"></ons-icon>
+                            Print
+                        </ons-button>
+                    </ons-col>
+                    <ons-col width="5px"></ons-col>
+                    <ons-col>
+                        <ons-button id="emailBtn" modifier="outline" style="width: 100%; text-align: center; background-color: rgba(255,165,0,0.5); border: 1px solid orange; color: black;" 
+                                    ng-click="EmailMenu()" ng-disabled="pageLoading">
+                            <ons-icon icon="ion-ios-email-outline" size="28px" fixed-width="false" style="color: orangered"></ons-icon>
+                            Email
+                        </ons-button>
+                    </ons-col>
+                </ons-row>
+
+                <ons-list modifier="inset" style="margin-top: 10px;" ng-show="info.Status=='New'">
+                    <ons-button modifier="material" style="width: 100%; text-align: center;"
+                                ng-click="confirm()" ng-disabled="pageLoading">
+                        <ons-ripple></ons-ripple>
+                        Confirm Reservation
+                    </ons-button>
+                </ons-list>
+                <ons-list modifier="inset" style="margin-top: 10px;" ng-show="info.Status=='Open'">
+                    <ons-button modifier="material" type="submit" id="toAgreementBtn" style="width: 100%; text-align: center;"
+                                ng-click="navigate()" ng-disabled="pageLoading">
+                        <ons-ripple></ons-ripple>
+                        Create Agreement
+                    </ons-button>
+                </ons-list>
+
+            </form>
+
+            <style>
+                .drop-down {
+                    width: 65%;
+                    height: 30px;
+                    margin-left: 5%;
+                    margin-top: 10px;
+                    text-indent: 0;
+                    text-align-last: center;
+                    border-radius: 5px;
+                }
+            </style>
+            <!-- add note start -->
+            <ons-modal var="NoteModal" direction="up">
+            
+                <form style="margin:20px;background-color: white;padding-bottom: 30px;border-radius: 5px" id="AddNoteForm">
+                    <div ng-if="NoteInfo.form === 0" style="background-color:#428bca;text-align: center;padding: 20px;border-top-left-radius: 5px;border-top-right-radius: 5px">
+                        Add Note </div>
+                    <div ng-if="NoteInfo.form === 1" style="background-color:#428bca;text-align: center;padding: 20px;border-top-left-radius: 5px;border-top-right-radius: 5px">
+                            Update Note </div>
+                    <div style="padding:10px 10px 0px;">
+                        <textarea name="note" rows="10" placeholder="Add Note" ng-model="NoteInfo.note" style="width:98%;"></textarea>
+                    </div>
+                    <div class="saveBtn" style="text-align: center;margin-top: 30px">
+                        <ons-button ng-if="NoteInfo.form === 0" ng-click="saveNote()">SAVE</ons-button>
+                        <ons-button ng-if="NoteInfo.form === 1" ng-click="updateNote()"">UPDATE</ons-button>
+                        <ons-button ng-click="NoteModal.hide()" style="background-color: #aca26a">Cancel</ons-button>
+                    </div>
+                </form>
+            
+            </ons-modal>
+            <!-- add note end -->
+            
+            <ons-modal var="invoiceSchedularModelData" direction="up">
+               
+                <form style="margin:20px;background-color: white;padding-bottom: 30px;" class="invoiceSchedularFormData">
+                    <div style="background-color:#428bca;text-align: center;padding: 20px"> Invoice Scheduler Period 
+                    </div> 
+                    <ons-list>
+                        <ons-list-header>Select Peroid</ons-list-header>
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <input type="radio" input-id="radio-1" name ="period" value="1" checked>
+                            </label>
+                            <label for="radio-1" class="center">
+                                Daily
+                            </label>
+                        </ons-list-item>
+
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <input type="radio"  input-id="radio-2" name ="period" value="2">
+                            </label>
+                            <label for="radio-2" class="center">
+                                Weekly
+                            </label>
+                        </ons-list-item>
+
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <input type="radio"  input-id="radio-3" name ="period" value="3">
+                            </label>
+                            <label for="radio-3" class="center">
+                                Monthly
+                            </label>
+                        </ons-list-item>
+                    </ons-list>
+
+                    <ons-list class="days">
+                        <ons-list-header>Select Day</ons-list-header>
+
+                        <ons-list-item tappable>
+                            <label class="left">
+                                <select name="days" style="padding: 10px">
+                                    <option value="1">Sunday</option>
+                                    <option value="2">Monday</option>
+                                    <option value="3">Tuesday</option>
+                                    <option value="4">Wednesday</option>
+                                    <option value="5">Thursday</option>
+                                    <option value="6">Friday</option>
+                                    <option value="7">Saturday</option>
+                                <select>
+                            </label>
+                        </ons-list-item>
+                    </ons-list>
+
+
+                    <ons-list class="LastUpdateDetails">
+                        <ons-list-header>Last Update Details</ons-list-header>
+                        <ons-list-item tappable>
+                           
+                                <label class="left">
+                                    <b> By : </b>
+                                </label>
+                                <label class="center UpdateBy"></label>
+                         
+                        </ons-list-item>
+                        <ons-list-item tappable>
+                            
+                                <label class="left">
+                                    <b> Date : </b>
+                                </label>
+                                <label class="center UpdateDate"></label>
+                
+                        </ons-list-item>  
+                    </ons-list>
+
+                    <div class="saveBtn" style="text-align: center;margin-top: 30px">
+                        <ons-button  ng-click="SavingInvoiceSchedularData()">
+                            SAVE
+                        </ons-button>   
+                    </div>
+
+                </form>   
+            
+            </ons-modal>
+
+
+
+
+        </ons-page>
+    </ons-navigator>
+</body>
+

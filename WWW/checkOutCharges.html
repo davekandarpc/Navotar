@@ -1,0 +1,97 @@
+﻿<body>
+    <ons-navigator title="Navigator">
+        <ons-page class="ons-page-fixed" ng-controller="checkOutChargesCtrl">
+
+            <div class="navigation-bar">
+                <div class="navigation-bar__left" onclick="homeNavigator.popPage({ animation: defaultTransition });">
+                    <span class="toolbar-button--quiet navigation-bar__line-height">
+                        <i class="ion-chevron-left"></i>
+                    </span>
+                </div>
+                <div class="navigation-bar__center">
+                    CheckOut Charges
+                </div>
+            </div>
+
+            <ons-list modifier="inset" style="margin-top: 10px" sliding-menu-ignore="true">
+                <ons-list-header>Summary Of Charges</ons-list-header>
+                <ons-list-item ng-repeat="item in payment">
+                    <ons-row>
+                        <ons-col width="40%" class="ellipsis-label">
+                            <label>
+                                {{item.text}}
+                            </label>
+                        </ons-col>
+                        <ons-col width="3%">
+                            :
+                        </ons-col>
+                        <ons-col ng-if="!item.textfield">
+                            <ons-row>
+                                <ons-col width="85%">
+                                    <label class="value to-right">{{item.value}}</label>
+                                </ons-col>
+                                <ons-col width="15%" ng-if="item.currency" class="to-right">
+                                    <span>{{Currency}}</span>
+                                </ons-col>
+                            </ons-row>
+                        </ons-col>
+
+                        <ons-col ng-if="item.textfield">
+                            <ons-row>
+                                <ons-col ng-if="item.currency">
+                                    <input type="text" style="padding: 15px 5px; margin-top: 6px;" class="text-input to-right" 
+                                           ng-disabled="item.disabled" ng-model="item.value" ng-keydown="validateNumbers($event)" ng-blur="calculateCheckOut()" min="-1000000000">
+                                </ons-col>
+                                <ons-col ng-if="!item.currency">
+                                    <input type="text" style="padding: 15px 5px; margin-top: 6px;" class="text-input to-right" ng-model="item.value" ng-disabled="item.promoDisabled">
+                                </ons-col>
+                                <ons-col width="15%" ng-if="item.currency" class="to-right">
+                                    <span>{{Currency}}</span>
+                                </ons-col>
+                                <ons-col width="15%" ng-if="!item.currency && !item.promoDisabled">
+                                    <ons-icon icon="ion-ios-checkmark-outline" size="30px" class="button--quiet" style="padding:0; margin-left:5px" ng-click="applyPromo()">
+                                    </ons-icon>
+                                </ons-col>
+                            </ons-row>
+                        </ons-col>
+                    </ons-row>
+                </ons-list-item>
+            </ons-list>
+
+            <ons-list modifier="inset" style="margin-top: 10px" sliding-menu-ignore="true">
+                <ons-list-header>Summary Of Deposit</ons-list-header>
+                <ons-list-item ng-repeat="item in depositDetails">
+                    <ons-row>
+                        <ons-col width="50%" class="ellipsis-label">
+                            <label>
+                                {{item.text}}
+                            </label>
+                        </ons-col>
+                        <ons-col width="3%">
+                            :
+                        </ons-col>
+                        <ons-col ng-if="item.textfield">
+                            <ons-row>
+                                <ons-col>
+                                    <input type="tel" style="padding: 15px 5px; margin-top: 6px;" class="text-input to-right" ng-model="item.value" ng-blur="tofixednum()">
+                                </ons-col>
+                                <ons-col width="15%" class="to-right">
+                                    <span ng-if="item.currency">{{Currency}}</span>
+                                </ons-col>
+                            </ons-row>
+                        </ons-col>
+                    </ons-row>
+                </ons-list-item>
+            </ons-list>
+
+            <br />
+
+            <ons-list modifier="inset" style="margin-top: 10px;">
+                <button type="submit" class="button button--large--cta" ng-click="submit()" ng-disabled="loading">
+                    Continue
+                </button>
+            </ons-list>
+        </ons-page>
+    </ons-navigator>
+
+</body>

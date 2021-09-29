@@ -1,0 +1,309 @@
+﻿<head>
+    <link href="css/App/home.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+</head>
+<body>
+    <ons-navigator animation="fade" var="homeNavigator">
+        <ons-page class="ons-page-fixed">
+            <div class="navigation-bar">
+
+                <div class="navigation-bar__left">
+                    <span class="toolbar-button--quiet navigation-bar__line-height" ng-click="menu.toggle()">
+                        <ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon>
+                    </span>
+                </div>
+
+                <div class="navigation-bar__center">
+                    <label class="toolbarHeader">NAVOTAR | HOME</label>
+                </div>
+
+            </div>
+            <div ng-controller="homeSearchOperator">
+
+                <div>
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col>
+                            <div class="selectContainer">
+                                <select class="form-control" ng-options='item for item in searchModes' ng-model="searchMode" ng-change="changeSearch()"
+                                        style="width: 90%; height: 30px; margin-left: 5%; margin-top: 10px; text-indent: 0; text-align-last: center; border-radius: 5px;"></select>
+                            </div>
+                        </ons-col>
+                    </ons-row>
+                </div>
+
+                <div ng-show="isReservationSearch" class="formarea font-small" ng-controller="homeReservationSearch">
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col><input type="text" class="text-input--underbar" ng-model="info.customerName" placeholder="Customer Name" value=""></ons-col>
+                    </ons-row>
+
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col><input type="tel" class="text-input--underbar" ng-model="info.customerPhone" placeholder="Customer Phone" value=""></ons-col>
+                    </ons-row>
+
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col><input type="text" class="text-input--underbar" ng-model="info.reservationNumber" placeholder="Reservation Number" value=""></ons-col>
+                    </ons-row>
+
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col><input type="text" class="text-input--underbar" ng-model="info.vehicleNumber" placeholder="Licence Number" value=""></ons-col>
+                    </ons-row>
+                    <br />
+                    <ons-row>
+                        <div class="button-bar" style="width: 100%;">
+                            <div class="button-bar__item">
+                                <input type="radio" name="segment-b" ng-model="resType" ng-value="resStatus.All" checked>
+                                <button class="button-bar__button">All</button>
+                            </div>
+
+                            <div class="button-bar__item">
+                                <input type="radio" name="segment-b" ng-model="resType" ng-value="resStatus.Open">
+                                <button class="button-bar__button">Open</button>
+                            </div>
+
+                            <div class="button-bar__item" ng-show="deviceWidth > 320">
+                                <input type="radio" name="segment-b" ng-model="resType" ng-value="resStatus.New">
+                                <button class="button-bar__button">New</button>
+                            </div>
+
+                            <div class="button-bar__item">
+                                <input type="radio" name="segment-b" ng-model="resType" ng-value="resStatus.CheckOut">
+                                <button class="button-bar__button">Checkout</button>
+                            </div>
+
+                            <div class="button-bar__item" ng-show="deviceWidth > 380">
+                                <input type="radio" name="segment-b" ng-model="resType" ng-value="resStatus.NoShow">
+                                <button class="button-bar__button">No Show</button>
+                            </div>
+
+                            <div class="button-bar__item">
+                                <input type="radio" name="segment-b" ng-model="resType" ng-value="resStatus.Canceled">
+                                <button class="button-bar__button">Canceled</button>
+                            </div>
+                        </div>
+                    </ons-row>
+                    <br />
+
+                    <ons-row>
+                        <ons-col>
+                            <label style="font-size: 18px" class="button button--large--cta" ng-click="search()" ng-disabled="resSearching">
+                                <ons-icon icon="ion-ios-loop" class="ng-anim" spin="true" id="resSearchIndicatorBtn" ng-hide="hideProgress" ng-class="{fade: fadeProgress}"></ons-icon>
+                                Search
+                            </label>
+                        </ons-col>
+
+                        <ons-col width="10%" id="resSearchCloseBtn" class="ng-anim" ng-hide="hideSearch" ng-class="{fade: fadeSearch}">
+                            <div>
+                                <ons-icon icon="ion-ios-close" size="30px" class="button--quiet" ng-click="hideList()">
+
+                                </ons-icon>
+                            </div>
+                        </ons-col>
+
+                    </ons-row>
+
+                    <label style="font-size: 10px;"><i>{{listCount}}</i></label>
+
+                    <table ng-show="isColumShow" style="width: 100%; text-align: center; background: white;">
+                        <tr>
+                            <td width="20%">Res.No</td>
+                            <td width="40%">Cus.Name</td>
+                            <td width="40%">Phone</td>
+                        </tr>
+                    </table>
+                    <div sliding-menu-ignore="true" ng-hide="hideSearch" ng-class="{fade: fadeSearch}" id="searchContent2" class="ContenetScroller ng-anim" style="overflow: scroll;">
+                        <ons-list style="border: 1px groove gray;">
+                            <ons-list-item modifier="tappable" ng-repeat="item in reservations  | orderBy : '-ReservationId'" style="text-align: left; line-height: 30px;"
+                                           ng-click="view(item.ReservationId) ">
+                                <ons-row>
+                                    <ons-col class="ellipsis-label" width="20%">
+                                        <label>{{item.ReservationNumber}}</label>
+                                    </ons-col>
+                                    <ons-col class="ellipsis-label" width="40%">
+                                        <label>{{item.FirstName | titleCase}}</label>
+                                    </ons-col>
+                                    <ons-col class="ellipsis-label" width="35%">
+                                        <label>{{item.Phone}}</label>
+                                    </ons-col>
+                                    <ons-col width="5%">
+                                        <ons-icon icon="ion-ios-arrow-right" size="20px" fixed-width="true"></ons-icon>
+                                    </ons-col>
+                                </ons-row>
+
+                            </ons-list-item>
+                        </ons-list>
+                    </div>
+                </div>
+
+                <div ng-show="isAgreementSearch" class="formarea font-small" ng-controller="homeAgreementSearch">
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col><input type="text" class="text-input--underbar" ng-model="info.customerName" placeholder="Customer Name" value=""></ons-col>
+                    </ons-row>
+
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col><input type="tel" class="text-input--underbar" ng-model="info.customerPhone" placeholder="Customer Phone" value=""></ons-col>
+                    </ons-row>
+
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col><input type="text" class="text-input--underbar" ng-model="info.agreementNumber" placeholder="Agreement Number" value=""></ons-col>
+                    </ons-row>
+
+                    <ons-row sliding-menu-ignore="true">
+                        <ons-col><input type="text" class="text-input--underbar" ng-model="info.vehicleNumber" placeholder="Licence Number" value=""></ons-col>
+                    </ons-row>
+                   
+                    <br />
+                    <ons-row>
+                        <div class="button-bar" style="width: 100%;">
+                            <!--<button class="button-bar__button">{{"All" | translate}}</button>-->
+                            <div class="button-bar__item">
+                                <input type="radio" name="segment-a" ng-model="agType" ng-value="agStatus.All">
+                                <button class="button-bar__button">All</button>
+                            </div>
+                            <div class="button-bar__item">
+                                <input type="radio" name="segment-a" ng-model="agType" ng-value="agStatus.Open">
+                                <button class="button-bar__button">Open</button>
+                            </div>
+                            <div class="button-bar__item">
+                                <input type="radio" name="segment-a" ng-model="agType" ng-value="agStatus.Close">
+                                <button class="button-bar__button">Close</button>
+                            </div>
+                            <div class="button-bar__item">
+                                <input type="radio" name="segment-a" ng-model="agType" ng-value="agStatus.Cancel">
+                                <button class="button-bar__button">Cancel</button>
+                            </div>
+                            <div class="button-bar__item" ng-show="deviceWidth > 320">
+                                <input type="radio" name="segment-a" ng-model="agType" ng-value="agStatus.PendingPayment">
+                                <button class="button-bar__button">P. Payment</button>
+                            </div>
+                            <div class="button-bar__item" ng-show="deviceWidth > 400">
+                                <input type="radio" name="segment-a" ng-model="agType" ng-value="agStatus.PendingDeposit">
+                                <button class="button-bar__button">P. Deposit</button>
+                            </div>                           
+                            
+                        </div>
+                    </ons-row>
+                    <br />
+
+                    <ons-row>
+                        <ons-col>
+                            <label style="font-size: 18px" class="button button--large--cta" ng-click="search()" ng-disabled="agreSearching">
+                                <ons-icon icon="ion-ios-loop" hidden spin="true" id="agSearchIndicator" class="ng-anim" ng-hide="hideProgress" ng-class="{fade: fadeProgress}"></ons-icon>
+                                Search
+                            </label>
+                        </ons-col>
+
+                        <ons-col width="10%" id="SearchcloseButton" class="ng-anim" ng-hide="hideSearch" ng-class="{fade: fadeSearch}">
+                            <div>
+                                <ons-icon icon="ion-ios-close" size="30px" class="button--quiet" ng-click="hideList()"></ons-icon>
+                            </div>
+                        </ons-col>
+
+                    </ons-row>
+
+                    <label style="font-size: 10px;"><i>{{listCount}}</i></label>
+
+                    <table ng-show="isColumShow" style="width: 100%; text-align: center; background: white;">
+                        <tr>
+                            <td width="20%">Agre.No</td>
+                            <td width="28%">Cus.Name</td>
+                            <td width="35%">Lice.No</td>
+                        </tr>
+                    </table>
+                    <div sliding-menu-ignore="true" id="searchContent" class="ContenetScroller ng-anim" ng-hide="hideSearch" ng-class="{fade: fadeSearch}" style="overflow: scroll;">
+                        <ons-list style="border: 1px groove gray;">
+                            <ons-list-item modifier="tappable" ng-repeat="agreement in Agreements  | orderBy : '-AgreementId'" style="text-align: left; line-height: 30px;"
+                                           ng-click="view(agreement.AgreementId) ">
+                                <ons-row>
+                                    <ons-col class="ellipsis-label" width="20%">
+                                        <label>{{agreement.AgreementNo}}</label>
+                                    </ons-col>
+                                    <ons-col class="ellipsis-label" width="35%">
+                                        <label>{{agreement.Firstname | titleCase}}</label>
+                                    </ons-col>
+                                    <ons-col class="ellipsis-label" width="35%">
+                                        <label>{{agreement.PlateNo}}</label>
+                                    </ons-col>
+                                    <ons-col>
+                                        <ons-icon icon="ion-ios-arrow-right" size="20px" fixed-width="true"></ons-icon>
+                                    </ons-col>
+                                </ons-row>
+
+                            </ons-list-item>
+                        </ons-list>
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <div ng-controller="homeNavigation">
+                <ons-row>
+                    <ons-col>
+                        <ons-row>
+                            <ons-icon icon="ion-ios-paper-outline" size="50px" class="button--quiet center-self" ng-click="newAgreement()"></ons-icon>
+                        </ons-row>
+                        <ons-row>
+                            <p class="center-self">New Agreement</p>
+                        </ons-row>
+                    </ons-col>
+                    <ons-col>
+                        <ons-row>
+                            <ons-icon icon="ion-person-add" size="50px" class="button--quiet center-self" ng-click="newCustomer()"></ons-icon>
+                        </ons-row>
+                        <ons-row>
+                            <p class="center-self">New Customer</p>
+                        </ons-row>
+                    </ons-col>
+                   
+                </ons-row>
+                <br />
+                <ons-row ng-show="true">
+                    <ons-col>
+                        <ons-row>
+                            <ons-icon icon="ion-ios-calendar-outline" size="50px" class="button--quiet center-self" ng-click="newReservation()"></ons-icon>
+                        </ons-row>
+                        <ons-row>
+                            <p class="center-self">New Reservation</p>
+                        </ons-row>
+                    </ons-col>
+                    <ons-col>
+                        <ons-row>
+                            <ons-icon icon="ion-ios-speedometer-outline" size="50px" class="button--quiet center-self" ng-click="vehicleStatus()"></ons-icon>
+                        </ons-row>
+                        <ons-row>
+                            <p class="center-self">Vehicle Status</p>
+                        </ons-row>
+                    </ons-col>
+                </ons-row>
+                <br />
+                <ons-row ng-show="false">
+                   
+                    <ons-col>
+                        <ons-row>
+                            <ons-icon icon="ion-model-s" size="50px" class="button--quiet center-self"></ons-icon>
+                        </ons-row>
+                        <ons-row>
+                            <p class="center-self">New Vehicle</p>
+                        </ons-row>
+                    </ons-col>
+                    <ons-col>
+                        <ons-row>
+                            <!--<ons-icon icon="ion-model-s" size="50px" class="button--quiet center-self"></ons-icon>-->
+                        </ons-row>
+                        <ons-row>
+                            <!--<p class="center-self">New Reservation</p>-->
+                        </ons-row>
+                    </ons-col>
+                </ons-row>
+            </div>
+            <ons-modal var="loadingCustomers" style="background-color: rgba(0, 0, 0, 0.86);">
+                <div>
+                    <ons-icon icon="ion-ios-loop" style="font-size: 25px" spin="true"></ons-icon>
+                    <br><br>
+                    Please wait.<br>
+                </div>
+            </ons-modal>
+        </ons-page>
+
+
+    </ons-navigator>
+</body>
