@@ -1,0 +1,4 @@
+# Navotar
+
+Cordova Project
+
